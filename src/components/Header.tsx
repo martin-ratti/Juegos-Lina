@@ -12,7 +12,7 @@ export const Header: React.FC<HeaderProps> = ({ theme, matches, totalPairs }) =>
   const navigate = useNavigate();
 
   return (
-    <header className="w-full px-3 sm:px-4 py-2.5 sm:py-3 flex items-center justify-between bg-white/70 backdrop-blur-lg sticky top-0 z-30 shadow-md border-b border-white/50">
+    <header className="w-full px-3 sm:px-4 py-2.5 sm:py-3 flex items-center justify-between bg-white/95 sticky top-0 z-30 shadow-md border-b border-white/50">
       <button 
         onClick={() => navigate('/')}
         className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 bg-white hover:bg-purple-50 text-purple-600 rounded-full font-extrabold shadow-md hover:shadow-lg transition-all hover:scale-105 active:scale-95 border-2 border-purple-200 shrink-0"

@@ -1,5 +1,5 @@
 import { GameSelector } from '../components/GameSelector';
-import { Sparkles } from 'lucide-react';
+import { Sparkles, Gamepad2 } from 'lucide-react';
 
 export const Home: React.FC = () => {
   return (
@@ -13,8 +13,8 @@ export const Home: React.FC = () => {
         <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-600 via-pink-500 to-orange-400 p-2 leading-tight">
           Juegos de Lina
         </h1>
-        <p className="mt-2 sm:mt-3 text-lg sm:text-xl md:text-2xl text-purple-700 font-bold bg-white/50 backdrop-blur-sm inline-block px-4 sm:px-6 py-1.5 sm:py-2 rounded-full shadow-sm border border-white/60">
-          🎮 ¿A qué jugamos hoy?
+        <p className="mt-2 sm:mt-3 text-lg sm:text-xl md:text-2xl text-purple-700 font-bold bg-white/80 inline-block px-4 sm:px-6 py-1.5 sm:py-2 rounded-full shadow-sm border border-white/60">
+          <Gamepad2 className="inline w-6 h-6 mr-1 -mt-1" /> ¿A qué jugamos hoy?
         </p>
       </div>
 
@@ -23,7 +23,7 @@ export const Home: React.FC = () => {
       
       {/* Keyboard hint */}
       <div className="hidden sm:block mt-auto py-6 animate-fade-in" style={{ animationDelay: '600ms', animationFillMode: 'backwards' }}>
-        <div className="flex items-center gap-2 text-purple-800/50 font-bold text-sm bg-white/40 backdrop-blur-sm px-5 py-2.5 rounded-full border border-white/50">
+        <div className="flex items-center gap-2 text-purple-800 font-bold text-sm bg-white/80 px-5 py-2.5 rounded-full border border-white/50 shadow-sm">
           <span>Flechitas</span>
           <kbd className="bg-white/80 px-2 py-0.5 rounded-md shadow-sm border border-purple-200 text-xs font-mono">←↑↓→</kbd>
           <span>para moverte ·</span>

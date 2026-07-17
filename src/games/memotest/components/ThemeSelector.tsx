@@ -11,12 +11,7 @@ const THEME_ICONS: Record<string, React.ReactNode> = {
   familia: <Users className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 text-white/80" />,
 };
 
-const THEME_EMOJIS: Record<string, string> = {
-  mickey: '🐭',
-  barbie: '💖',
-  princesas: '👸',
-  familia: '👨‍👩‍👧',
-};
+
 
 export const ThemeSelector: React.FC = () => {
   const navigate = useNavigate();
@@ -65,7 +60,6 @@ export const ThemeSelector: React.FC = () => {
                   {THEME_ICONS[theme.id]}
                 </div>
                 <h2 className="text-xl sm:text-3xl md:text-4xl text-white drop-shadow-lg flex items-center gap-1 sm:gap-2">
-                  <span>{THEME_EMOJIS[theme.id]}</span>
                   {theme.name}
                 </h2>
                 <p className="text-white/90 text-xs sm:text-base md:text-lg font-bold">
@@ -73,7 +67,7 @@ export const ThemeSelector: React.FC = () => {
                 </p>
                 
                 {theme.comingSoon && (
-                  <div className="absolute top-2 right-2 sm:top-3 sm:right-3 bg-black/20 p-1.5 sm:p-2 rounded-full backdrop-blur-sm">
+                  <div className="absolute top-2 right-2 sm:top-3 sm:right-3 bg-black/40 p-1.5 sm:p-2 rounded-full">
                     <Lock className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
                   </div>
                 )}

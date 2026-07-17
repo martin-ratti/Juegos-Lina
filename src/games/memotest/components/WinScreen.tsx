@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import confetti from 'canvas-confetti';
 import { useNavigate } from 'react-router-dom';
-import { Star, RefreshCw, Home } from 'lucide-react';
+import { Star, RefreshCw, Home, PartyPopper, Sparkles } from 'lucide-react';
 
 interface WinScreenProps {
   onRestart: () => void;
@@ -59,7 +59,7 @@ export const WinScreen: React.FC<WinScreenProps> = ({ onRestart }) => {
   }, [onRestart, navigate]);
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/40 backdrop-blur-sm animate-fade-in">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/80 animate-fade-in">
       <div className="bg-white rounded-[2rem] sm:rounded-[2.5rem] p-5 sm:p-8 md:p-10 max-w-lg w-full text-center shadow-2xl border-4 sm:border-8 border-yellow-400 animate-pop-in">
         
         {/* Stars row */}
@@ -69,15 +69,18 @@ export const WinScreen: React.FC<WinScreenProps> = ({ onRestart }) => {
           <Star className="w-8 h-8 sm:w-10 sm:h-10 text-yellow-400 fill-yellow-400 animate-bounce" style={{ animationDelay: '300ms' }} />
         </div>
 
-        {/* Celebration emojis */}
-        <div className="text-3xl sm:text-4xl mb-2 sm:mb-3 animate-wiggle">🎉🥳🎉</div>
+        {/* Celebration icons */}
+        <div className="flex justify-center gap-2 mb-2 sm:mb-3 animate-wiggle text-pink-500">
+          <PartyPopper className="w-8 h-8 sm:w-10 sm:h-10" />
+          <PartyPopper className="w-8 h-8 sm:w-10 sm:h-10 transform scale-x-[-1]" />
+        </div>
 
         <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-pink-500 mb-2 sm:mb-3 drop-shadow-md">
           ¡Ganaste Lina!
         </h2>
         
-        <p className="text-base sm:text-lg md:text-xl text-purple-700 mb-5 sm:mb-8 font-bold">
-          ¡Encontraste todas las parejas! 🌟
+        <p className="flex items-center justify-center gap-2 text-base sm:text-lg md:text-xl text-purple-700 mb-5 sm:mb-8 font-bold">
+          ¡Encontraste todas las parejas! <Sparkles className="w-5 h-5 text-yellow-400" />
         </p>
 
         <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">

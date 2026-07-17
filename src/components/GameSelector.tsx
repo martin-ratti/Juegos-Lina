@@ -7,7 +7,6 @@ const GAMES = [
   {
     id: 'memotest',
     name: 'Memotest',
-    emoji: '🧠',
     description: '¡Encontrá las parejas!',
     color: 'from-purple-400 to-indigo-500',
     icon: Puzzle,
@@ -16,7 +15,6 @@ const GAMES = [
   {
     id: 'rompecabezas',
     name: 'Cuerpo Humano',
-    emoji: '👦',
     description: '¡Armá el muñeco!',
     color: 'from-blue-400 to-cyan-500',
     icon: Smile,
@@ -67,8 +65,7 @@ export const GameSelector: React.FC = () => {
               <div className="absolute -bottom-6 -left-6 w-20 sm:w-28 h-20 sm:h-28 bg-white/10 rounded-full" />
 
               <div className="relative p-5 sm:p-8 md:p-10 h-40 sm:h-52 md:h-64 flex flex-col items-center justify-center text-center gap-2 sm:gap-3">
-                <div className="text-4xl sm:text-5xl md:text-6xl mb-1">{game.emoji}</div>
-                <Icon className="w-8 h-8 sm:w-10 sm:h-10 text-white/70" />
+                <Icon className="w-16 h-16 sm:w-20 sm:h-20 text-white/90 mb-2" />
                 <h2 className="text-xl sm:text-3xl md:text-4xl text-white drop-shadow-lg">
                   {game.name}
                 </h2>

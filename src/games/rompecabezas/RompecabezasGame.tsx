@@ -210,7 +210,7 @@ export const RompecabezasGame: React.FC = () => {
   return (
     <div className="relative min-h-dvh flex flex-col bg-gradient-to-b from-teal-200 via-cyan-100 to-blue-100 overflow-hidden">
       {/* Header */}
-      <header className="w-full px-3 sm:px-4 py-2.5 sm:py-3 flex items-center justify-between bg-white/70 backdrop-blur-lg sticky top-0 z-30 shadow-md border-b border-white/50">
+      <header className="w-full px-3 sm:px-4 py-2.5 sm:py-3 flex items-center justify-between bg-white/95 sticky top-0 z-30 shadow-md border-b border-white/50">
         <button 
           onClick={() => navigate('/')}
           className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 bg-white hover:bg-cyan-50 text-cyan-600 rounded-full font-extrabold shadow-md hover:shadow-lg transition-all hover:scale-105 active:scale-95 border-2 border-cyan-200 shrink-0"
@@ -220,7 +220,7 @@ export const RompecabezasGame: React.FC = () => {
         </button>
 
         <h1 className="text-xl sm:text-2xl md:text-3xl text-center text-cyan-700 flex-1 px-2 font-extrabold drop-shadow-sm truncate">
-          {selectedPiece ? '👇 ¡Tocá dónde va!' : '👆 ¡Elegí una pieza!'}
+          {selectedPiece ? '¡Tocá dónde va!' : '¡Elegí una pieza!'}
         </h1>
         
         <div className="w-20 shrink-0"></div>
@@ -229,7 +229,7 @@ export const RompecabezasGame: React.FC = () => {
       <main className="flex-1 flex flex-col items-center justify-between py-2 sm:py-6 px-2 sm:px-4">
         
         {/* Silhouette Center */}
-        <div className="relative w-[300px] h-[400px] sm:w-[350px] sm:h-[480px] mt-2 sm:mt-6 bg-white/30 backdrop-blur-md rounded-[3rem] border-4 border-white/70 shadow-2xl flex flex-col items-center p-6 animate-fade-in">
+        <div className="relative w-[300px] h-[400px] sm:w-[350px] sm:h-[480px] mt-2 sm:mt-6 bg-white/90 rounded-[3rem] border-4 border-white/70 shadow-2xl flex flex-col items-center p-6 animate-fade-in">
           
           {/* Helper overlay when piece is selected */}
           {selectedPiece && (

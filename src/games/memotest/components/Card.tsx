@@ -1,5 +1,6 @@
 import type { CardItem } from '../../../types';
 import { clsx } from 'clsx';
+import { Star, Sparkles } from 'lucide-react';
 
 interface CardProps {
   card: CardItem;
@@ -72,9 +73,9 @@ export const Card: React.FC<CardProps> = ({ card, onClick, isFocused, isShaking,
           />
           {card.isMatched && (
             <>
-              <div className="absolute top-0.5 right-0.5 sm:top-1 sm:right-1 text-sm sm:text-xl animate-bounce" style={{ animationDelay: '0ms' }}>⭐</div>
-              <div className="absolute top-0.5 left-0.5 sm:top-1 sm:left-1 text-sm sm:text-xl animate-bounce" style={{ animationDelay: '200ms' }}>✨</div>
-              <div className="absolute bottom-0.5 right-0.5 sm:bottom-1 sm:right-1 text-xs sm:text-lg animate-bounce" style={{ animationDelay: '400ms' }}>🌟</div>
+              <Star className="absolute top-1 right-1 w-4 h-4 sm:w-6 sm:h-6 text-yellow-400 fill-yellow-400 animate-bounce" style={{ animationDelay: '0ms' }} />
+              <Sparkles className="absolute top-1 left-1 w-4 h-4 sm:w-6 sm:h-6 text-yellow-300 animate-bounce" style={{ animationDelay: '200ms' }} />
+              <Star className="absolute bottom-1 right-1 w-3 h-3 sm:w-5 sm:h-5 text-yellow-400 fill-yellow-400 animate-bounce" style={{ animationDelay: '400ms' }} />
             </>
           )}
         </div>
