@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import confetti from 'canvas-confetti';
 import { useNavigate } from 'react-router-dom';
 import { Star, RefreshCw, Home } from 'lucide-react';
@@ -9,40 +9,48 @@ interface WinScreenProps {
 
 export const WinScreen: React.FC<WinScreenProps> = ({ onRestart }) => {
   const navigate = useNavigate();
+  const confettiTimerRef = useRef<number | null>(null);
 
   useEffect(() => {
-    // Fire confetti on mount
-    const duration = 3 * 1000;
+    // Big confetti celebration — runs for 4 seconds
+    const duration = 4000;
     const end = Date.now() + duration;
 
     const frame = () => {
       confetti({
-        particleCount: 5,
+        particleCount: 4,
         angle: 60,
         spread: 55,
-        origin: { x: 0 },
-        colors: ['#ff6f00', '#e91e63', '#00bcd4', '#FFD700']
+        origin: { x: 0, y: 0.6 },
+        colors: ['#ff6f00', '#e91e63', '#00bcd4', '#FFD700', '#76FF03']
       });
       confetti({
-        particleCount: 5,
+        particleCount: 4,
         angle: 120,
         spread: 55,
-        origin: { x: 1 },
-        colors: ['#ff6f00', '#e91e63', '#00bcd4', '#FFD700']
+        origin: { x: 1, y: 0.6 },
+        colors: ['#ff6f00', '#e91e63', '#00bcd4', '#FFD700', '#76FF03']
       });
 
       if (Date.now() < end) {
-        requestAnimationFrame(frame);
+        confettiTimerRef.current = requestAnimationFrame(frame);
       }
     };
     
     frame();
+
+    return () => {
+      if (confettiTimerRef.current) {
+        cancelAnimationFrame(confettiTimerRef.current);
+      }
+    };
   }, []);
 
   // Keyboard support for win screen
   useEffect(() => {
     const handleKey = (e: KeyboardEvent) => {
       if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
         onRestart();
       } else if (e.key === 'Escape') {
         navigate('/');
@@ -53,43 +61,47 @@ export const WinScreen: React.FC<WinScreenProps> = ({ onRestart }) => {
   }, [onRestart, navigate]);
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm animate-in fade-in duration-500">
-      <div className="bg-white rounded-[3rem] p-8 max-w-lg w-full text-center shadow-2xl border-8 border-yellow-400 transform transition-all animate-in zoom-in-90 duration-500">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm animate-fade-in">
+      <div className="bg-white rounded-[2.5rem] p-8 sm:p-10 max-w-lg w-full text-center shadow-2xl border-8 border-yellow-400 animate-pop-in">
         
-        <div className="flex justify-center gap-2 mb-6">
-          <Star className="w-12 h-12 text-yellow-400 fill-yellow-400 animate-bounce" style={{ animationDelay: '0ms' }} />
-          <Star className="w-16 h-16 text-yellow-400 fill-yellow-400 animate-bounce" style={{ animationDelay: '150ms' }} />
-          <Star className="w-12 h-12 text-yellow-400 fill-yellow-400 animate-bounce" style={{ animationDelay: '300ms' }} />
+        {/* Stars row */}
+        <div className="flex justify-center gap-3 mb-5">
+          <Star className="w-10 h-10 text-yellow-400 fill-yellow-400 animate-bounce" style={{ animationDelay: '0ms' }} />
+          <Star className="w-14 h-14 text-yellow-400 fill-yellow-400 animate-bounce" style={{ animationDelay: '150ms' }} />
+          <Star className="w-10 h-10 text-yellow-400 fill-yellow-400 animate-bounce" style={{ animationDelay: '300ms' }} />
         </div>
 
-        <h2 className="text-5xl sm:text-6xl text-pink-500 mb-4 drop-shadow-md">
+        {/* Celebration emojis */}
+        <div className="text-4xl mb-3 animate-wiggle">🎉🥳🎉</div>
+
+        <h2 className="text-4xl sm:text-5xl md:text-6xl text-pink-500 mb-3 drop-shadow-md">
           ¡Ganaste Lina!
         </h2>
         
-        <p className="text-xl sm:text-2xl text-purple-700 mb-8 font-bold">
-          ¡Encontraste todas las parejas!
+        <p className="text-lg sm:text-xl text-purple-700 mb-8 font-bold">
+          ¡Encontraste todas las parejas! 🌟
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <button 
             onClick={onRestart}
-            className="flex items-center justify-center gap-2 px-8 py-4 bg-green-500 hover:bg-green-600 text-white text-2xl font-bold rounded-full shadow-lg transition-transform hover:scale-105 active:scale-95 border-4 border-green-300"
+            className="flex items-center justify-center gap-3 px-8 py-4 bg-gradient-to-r from-green-400 to-emerald-500 hover:from-green-500 hover:to-emerald-600 text-white text-xl sm:text-2xl font-bold rounded-full shadow-lg transition-all hover:scale-105 active:scale-95 border-4 border-green-300/50"
           >
-            <RefreshCw className="w-8 h-8" />
-            De Nuevo
+            <RefreshCw className="w-7 h-7" />
+            ¡De Nuevo!
           </button>
           
           <button 
             onClick={() => navigate('/')}
-            className="flex items-center justify-center gap-2 px-8 py-4 bg-purple-500 hover:bg-purple-600 text-white text-2xl font-bold rounded-full shadow-lg transition-transform hover:scale-105 active:scale-95 border-4 border-purple-300"
+            className="flex items-center justify-center gap-3 px-8 py-4 bg-gradient-to-r from-purple-400 to-indigo-500 hover:from-purple-500 hover:to-indigo-600 text-white text-xl sm:text-2xl font-bold rounded-full shadow-lg transition-all hover:scale-105 active:scale-95 border-4 border-purple-300/50"
           >
-            <Home className="w-8 h-8" />
-            Salir
+            <Home className="w-7 h-7" />
+            Menú
           </button>
         </div>
         
-        <p className="mt-6 text-sm text-gray-500">
-          (Presiona Enter para jugar de nuevo)
+        <p className="mt-5 text-xs text-gray-400 font-semibold">
+          Enter → jugar de nuevo · Esc → menú
         </p>
       </div>
     </div>

@@ -4,10 +4,15 @@
   --animate-float: float 3s ease-in-out infinite;
   --animate-pulse-glow: pulse-glow 2s infinite;
   --animate-bounce-slight: bounce-slight 0.5s ease-in-out;
+  --animate-shake: shake 0.5s ease-in-out;
+  --animate-fade-in: fade-in 0.4s ease-out;
+  --animate-slide-up: slide-up 0.5s ease-out;
+  --animate-pop-in: pop-in 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  --animate-wiggle: wiggle 1s ease-in-out infinite;
 
   @keyframes float {
-    0%, 100% { transform: translateY(0) }
-    50% { transform: translateY(-10px) }
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
   }
   
   @keyframes pulse-glow {
@@ -19,6 +24,34 @@
   @keyframes bounce-slight {
     0%, 100% { transform: scale(1); }
     50% { transform: scale(1.05); }
+  }
+
+  @keyframes shake {
+    0%, 100% { transform: translateX(0) rotateY(180deg); }
+    20% { transform: translateX(-8px) rotateY(180deg); }
+    40% { transform: translateX(8px) rotateY(180deg); }
+    60% { transform: translateX(-6px) rotateY(180deg); }
+    80% { transform: translateX(6px) rotateY(180deg); }
+  }
+
+  @keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes slide-up {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes pop-in {
+    from { opacity: 0; transform: scale(0.8); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  @keyframes wiggle {
+    0%, 100% { transform: rotate(-3deg); }
+    50% { transform: rotate(3deg); }
   }
 }
 
@@ -36,17 +69,34 @@
 }
 
 @layer base {
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+
   body {
-    background-image: linear-gradient(to bottom right, #fce4ec, #e8eaf6, #e0f7fa);
+    background: linear-gradient(135deg, #fce4ec 0%, #f3e5f5 25%, #e8eaf6 50%, #e1f5fe 75%, #e0f7fa 100%);
     background-attachment: fixed;
-    min-height: 100vh;
+    min-height: 100dvh;
     font-family: 'Nunito', sans-serif;
     color: #4a148c;
     overflow-x: hidden;
     margin: 0;
+    user-select: none;
   }
 
   h1, h2, h3, h4, h5, h6 {
     font-family: 'Fredoka One', cursive;
+  }
+
+  /* Smooth scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(156, 39, 176, 0.3);
+    border-radius: 4px;
   }
 }

@@ -2,33 +2,43 @@ import { useState, useEffect, useCallback } from 'react';
 import type { CardItem, Theme } from '../types';
 import confetti from 'canvas-confetti';
 
+// Fisher-Yates shuffle — correct uniform distribution
+function shuffle<T>(array: T[]): T[] {
+  const arr = [...array];
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
 export const useGameLogic = (theme: Theme | undefined) => {
   const [cards, setCards] = useState<CardItem[]>([]);
-  const [flippedCards, setFlippedCards] = useState<number[]>([]); // indices of flipped cards
+  const [flippedCards, setFlippedCards] = useState<number[]>([]);
   const [matches, setMatches] = useState(0);
   const [moves, setMoves] = useState(0);
   const [isLocked, setIsLocked] = useState(false);
+  const [shakingCards, setShakingCards] = useState<number[]>([]);
+  const totalPairs = theme?.images.length ?? 0;
 
   const initializeGame = useCallback(() => {
-    if (!theme) return;
+    if (!theme || theme.images.length === 0) return;
     
-    // Create pairs and shuffle
     const pairedImages = [...theme.images, ...theme.images];
-    const shuffledCards = pairedImages
-      .sort(() => Math.random() - 0.5)
-      .map((image, index) => ({
-        id: `${index}-${Math.random()}`,
-        imageId: image, // Use the image URL as the matching ID for now
-        image,
-        isFlipped: false,
-        isMatched: false,
-      }));
+    const shuffledCards = shuffle(pairedImages).map((image, index) => ({
+      id: `${index}-${Date.now()}-${Math.random()}`,
+      imageId: image,
+      image,
+      isFlipped: false,
+      isMatched: false,
+    }));
 
     setCards(shuffledCards);
     setFlippedCards([]);
     setMatches(0);
     setMoves(0);
     setIsLocked(false);
+    setShakingCards([]);
   }, [theme]);
 
   useEffect(() => {
@@ -36,7 +46,6 @@ export const useGameLogic = (theme: Theme | undefined) => {
   }, [initializeGame]);
 
   const handleCardClick = (index: number) => {
-    // Prevent clicking if board is locked, card is already matched, or card is already flipped
     if (isLocked || cards[index].isMatched || flippedCards.includes(index)) {
       return;
     }
@@ -44,7 +53,6 @@ export const useGameLogic = (theme: Theme | undefined) => {
     const newFlipped = [...flippedCards, index];
     setFlippedCards(newFlipped);
     
-    // Update card to be flipped visually
     setCards(prev => {
       const newCards = [...prev];
       newCards[index] = { ...newCards[index], isFlipped: true };
@@ -59,25 +67,34 @@ export const useGameLogic = (theme: Theme | undefined) => {
       const match = cards[firstIndex].imageId === cards[secondIndex].imageId;
 
       if (match) {
-        // Efecto WOW de confeti pequeño
+        // Mini confetti burst for each match
         confetti({
-          particleCount: 40,
-          spread: 50,
-          origin: { y: 0.7 },
-          colors: ['#FFD700', '#FF8C00', '#FF1493']
+          particleCount: 50,
+          spread: 60,
+          origin: { y: 0.6 },
+          colors: ['#FFD700', '#FF8C00', '#FF1493', '#00E5FF', '#76FF03'],
+          gravity: 0.8,
         });
-        
-        setMatches(m => m + 1);
-        setCards(prev => {
-          const newCards = [...prev];
-          newCards[firstIndex] = { ...newCards[firstIndex], isMatched: true };
-          newCards[secondIndex] = { ...newCards[secondIndex], isMatched: true };
-          return newCards;
-        });
-        setFlippedCards([]);
-        setIsLocked(false);
+
+        // Small delay so the player sees both cards before marking as matched
+        setTimeout(() => {
+          setMatches(m => m + 1);
+          setCards(prev => {
+            const newCards = [...prev];
+            newCards[firstIndex] = { ...newCards[firstIndex], isMatched: true };
+            newCards[secondIndex] = { ...newCards[secondIndex], isMatched: true };
+            return newCards;
+          });
+          setFlippedCards([]);
+          setIsLocked(false);
+        }, 400);
       } else {
-        // Longer timeout for a 3 year old to see the cards
+        // Shake animation on mismatch
+        setTimeout(() => {
+          setShakingCards([firstIndex, secondIndex]);
+        }, 800);
+
+        // Flip cards back after showing them
         setTimeout(() => {
           setCards(prev => {
             const newCards = [...prev];
@@ -87,18 +104,21 @@ export const useGameLogic = (theme: Theme | undefined) => {
           });
           setFlippedCards([]);
           setIsLocked(false);
-        }, 1500);
+          setShakingCards([]);
+        }, 1800);
       }
     }
   };
 
-  const isWon = matches === 6 && cards.length > 0; // 6 pairs for our 3x4 grid
+  const isWon = totalPairs > 0 && matches === totalPairs && cards.length > 0;
 
   return {
     cards,
     moves,
     matches,
+    totalPairs,
     isWon,
+    shakingCards,
     handleCardClick,
     initializeGame,
   };
