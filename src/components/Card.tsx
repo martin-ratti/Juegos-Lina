@@ -15,36 +15,33 @@ export const Card: React.FC<CardProps> = ({ card, onClick, isFocused, isShaking,
   return (
     <div 
       className={clsx(
-        'relative w-full aspect-square cursor-pointer perspective-1000 transition-all duration-300 rounded-2xl',
-        // Focused state — big glowing ring
-        isFocused && !card.isMatched && 'ring-[6px] ring-yellow-400 ring-offset-4 ring-offset-transparent scale-110 z-20 shadow-[0_0_35px_rgba(255,215,0,0.5)]',
+        'relative w-full aspect-square cursor-pointer perspective-1000 transition-all duration-300 rounded-xl sm:rounded-2xl',
+        // Focused state
+        isFocused && !card.isMatched && 'ring-4 sm:ring-[6px] ring-yellow-400 ring-offset-2 sm:ring-offset-4 ring-offset-transparent scale-105 sm:scale-110 z-20 shadow-[0_0_25px_rgba(255,215,0,0.5)]',
         // Idle state
         !isFocused && !card.isMatched && 'hover:scale-105 hover:shadow-xl',
-        // Matched state — green glow + slight shrink to "settle"
-        card.isMatched && 'shadow-[0_0_25px_rgba(34,197,94,0.4)] ring-4 ring-green-400/80 scale-[0.95]',
+        // Matched state
+        card.isMatched && 'shadow-[0_0_20px_rgba(34,197,94,0.4)] ring-2 sm:ring-4 ring-green-400/80 scale-[0.95]',
       )}
       onClick={onClick}
     >
       <div 
         className={clsx(
-          'w-full h-full transform-style-3d rounded-2xl relative',
+          'w-full h-full transform-style-3d rounded-xl sm:rounded-2xl relative',
           isRevealed ? 'rotate-y-180' : '',
-          // Flip speed
           !isShaking && 'duration-500',
-          // Shake animation on mismatch
           isShaking && 'animate-shake',
         )}
       >
-        {/* === BACK FACE (what you see when card is face-down) === */}
+        {/* === BACK FACE (face-down) === */}
         <div 
           className={clsx(
-            'absolute w-full h-full backface-hidden rounded-2xl flex items-center justify-center',
-            'border-4 border-white/60 bg-gradient-to-br shadow-lg overflow-hidden',
+            'absolute w-full h-full backface-hidden rounded-xl sm:rounded-2xl flex items-center justify-center',
+            'border-2 sm:border-4 border-white/60 bg-gradient-to-br shadow-lg overflow-hidden',
             themeColor
           )}
         >
-          {/* Foto de Lina como dorso */}
-          <div className="w-3/5 h-3/5 rounded-full overflow-hidden border-4 border-white/80 shadow-lg">
+          <div className="w-1/2 h-1/2 sm:w-3/5 sm:h-3/5 rounded-full overflow-hidden border-2 sm:border-4 border-white/80 shadow-lg">
             <img 
               src="/images/lina.jpg" 
               alt="Lina" 
@@ -54,14 +51,14 @@ export const Card: React.FC<CardProps> = ({ card, onClick, isFocused, isShaking,
           </div>
         </div>
 
-        {/* === FRONT FACE (the image — revealed when flipped) === */}
+        {/* === FRONT FACE (revealed) === */}
         <div 
           className={clsx(
-            'absolute w-full h-full backface-hidden rounded-2xl rotate-y-180 overflow-hidden',
-            'flex items-center justify-center p-3',
+            'absolute w-full h-full backface-hidden rounded-xl sm:rounded-2xl rotate-y-180 overflow-hidden',
+            'flex items-center justify-center p-1.5 sm:p-3',
             card.isMatched 
-              ? 'bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50 border-4 border-green-400' 
-              : 'bg-white border-4 border-gray-200 shadow-inner'
+              ? 'bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50 border-2 sm:border-4 border-green-400' 
+              : 'bg-white border-2 sm:border-4 border-gray-200 shadow-inner'
           )}
         >
           <img 
@@ -75,9 +72,9 @@ export const Card: React.FC<CardProps> = ({ card, onClick, isFocused, isShaking,
           />
           {card.isMatched && (
             <>
-              <div className="absolute top-1 right-1 text-xl animate-bounce" style={{ animationDelay: '0ms' }}>⭐</div>
-              <div className="absolute top-1 left-1 text-xl animate-bounce" style={{ animationDelay: '200ms' }}>✨</div>
-              <div className="absolute bottom-1 right-1 text-lg animate-bounce" style={{ animationDelay: '400ms' }}>🌟</div>
+              <div className="absolute top-0.5 right-0.5 sm:top-1 sm:right-1 text-sm sm:text-xl animate-bounce" style={{ animationDelay: '0ms' }}>⭐</div>
+              <div className="absolute top-0.5 left-0.5 sm:top-1 sm:left-1 text-sm sm:text-xl animate-bounce" style={{ animationDelay: '200ms' }}>✨</div>
+              <div className="absolute bottom-0.5 right-0.5 sm:bottom-1 sm:right-1 text-xs sm:text-lg animate-bounce" style={{ animationDelay: '400ms' }}>🌟</div>
             </>
           )}
         </div>

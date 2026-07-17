@@ -29,10 +29,10 @@ export const GameBoard: React.FC<GameBoardProps> = ({ cards, theme, onCardClick,
   if (cards.length === 0) return null;
 
   return (
-    <div className="w-full max-w-2xl mx-auto p-6 sm:p-8 bg-white/30 backdrop-blur-md rounded-[2rem] shadow-2xl border-2 border-white/50 animate-fade-in">
-      {/* Extra padding so scale-110 on focused cards doesn't get clipped */}
-      <div className="p-2 sm:p-3">
-        <div className="grid grid-cols-3 gap-4 sm:gap-5 md:gap-6">
+    <div className="w-full max-w-[min(100%,32rem)] lg:max-w-2xl mx-auto p-3 sm:p-6 md:p-8 bg-white/30 backdrop-blur-md rounded-2xl sm:rounded-[2rem] shadow-2xl border-2 border-white/50 animate-fade-in">
+      {/* Extra padding so scale on focused cards doesn't get clipped */}
+      <div className="p-1 sm:p-2 md:p-3">
+        <div className="grid grid-cols-3 gap-2 sm:gap-4 md:gap-5 lg:gap-6">
           {cards.map((card, index) => (
             <div 
               key={card.id} 
