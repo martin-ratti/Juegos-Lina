@@ -39,14 +39,19 @@ export const Card: React.FC<CardProps> = ({ card, onClick, isFocused, isShaking,
         <div 
           className={clsx(
             'absolute w-full h-full backface-hidden rounded-2xl flex items-center justify-center',
-            'border-4 border-white/60 bg-gradient-to-br shadow-lg',
-            'hover:shadow-xl',
+            'border-4 border-white/60 bg-gradient-to-br shadow-lg overflow-hidden',
             themeColor
           )}
         >
-          <span className="text-5xl sm:text-6xl md:text-7xl text-white/50 font-bold select-none drop-shadow-lg animate-wiggle">
-            ?
-          </span>
+          {/* Foto de Lina como dorso */}
+          <div className="w-3/5 h-3/5 rounded-full overflow-hidden border-4 border-white/80 shadow-lg">
+            <img 
+              src="/images/lina.jpg" 
+              alt="Lina" 
+              className="w-full h-full object-cover"
+              draggable={false}
+            />
+          </div>
         </div>
 
         {/* === FRONT FACE (the image — revealed when flipped) === */}
