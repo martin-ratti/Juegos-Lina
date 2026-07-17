@@ -1,6 +1,6 @@
 import { Card } from './Card';
-import type { CardItem, Theme } from '../types';
-import { useKeyboard } from '../hooks/useKeyboard';
+import type { CardItem, Theme } from '../../../types';
+import { useKeyboard } from '../../../hooks/useKeyboard';
 import { useNavigate } from 'react-router-dom';
 
 interface GameBoardProps {

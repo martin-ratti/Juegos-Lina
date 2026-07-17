@@ -1,9 +1,9 @@
 
 import { Routes, Route } from 'react-router-dom';
 import { Home } from './pages/Home';
-import { Game } from './pages/Game';
-import { MemoHome } from './pages/MemoHome';
-import { GlobosGame } from './pages/GlobosGame';
+import { Game } from './games/memotest/pages/MemotestGame';
+import { MemoHome } from './games/memotest/pages/MemoHome';
+import { GlobosGame } from './games/globos/GlobosGame';
 
 function App() {
   return (

@@ -1,10 +1,10 @@
 import { useParams, Navigate } from 'react-router-dom';
-import { THEMES } from '../data/themes';
-import { useGameLogic } from '../hooks/useGameLogic';
-import { Header } from '../components/Header';
+import { THEMES } from '../../../data/themes';
+import { useGameLogic } from '../hooks/useMemotestLogic';
+import { Header } from '../../../components/Header';
 import { GameBoard } from '../components/GameBoard';
 import { WinScreen } from '../components/WinScreen';
-import type { ThemeId } from '../types';
+import type { ThemeId } from '../../../types';
 
 export const Game: React.FC = () => {
   const { themeId } = useParams<{ themeId: string }>();

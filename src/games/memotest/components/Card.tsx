@@ -1,4 +1,4 @@
-import type { CardItem } from '../types';
+import type { CardItem } from '../../../types';
 import { clsx } from 'clsx';
 
 interface CardProps {

@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import type { CardItem, Theme } from '../types';
+import type { CardItem, Theme } from '../../../types';
 import confetti from 'canvas-confetti';
 
 // Fisher-Yates shuffle — correct uniform distribution

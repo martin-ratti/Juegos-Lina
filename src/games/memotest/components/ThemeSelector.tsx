@@ -1,7 +1,7 @@
-import { THEMES } from '../data/themes';
+import { THEMES } from '../../../data/themes';
 import { useNavigate } from 'react-router-dom';
 import { clsx } from 'clsx';
-import { useKeyboard } from '../hooks/useKeyboard';
+import { useKeyboard } from '../../../hooks/useKeyboard';
 import { Lock, Mouse, Crown, Heart, Users } from 'lucide-react';
 
 const THEME_ICONS: Record<string, React.ReactNode> = {
