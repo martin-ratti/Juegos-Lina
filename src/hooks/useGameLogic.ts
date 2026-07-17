@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import type { CardItem, Theme } from '../types';
+import confetti from 'canvas-confetti';
 
 export const useGameLogic = (theme: Theme | undefined) => {
   const [cards, setCards] = useState<CardItem[]>([]);
@@ -58,6 +59,14 @@ export const useGameLogic = (theme: Theme | undefined) => {
       const match = cards[firstIndex].imageId === cards[secondIndex].imageId;
 
       if (match) {
+        // Efecto WOW de confeti pequeño
+        confetti({
+          particleCount: 40,
+          spread: 50,
+          origin: { y: 0.7 },
+          colors: ['#FFD700', '#FF8C00', '#FF1493']
+        });
+        
         setMatches(m => m + 1);
         setCards(prev => {
           const newCards = [...prev];

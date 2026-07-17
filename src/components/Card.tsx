@@ -13,9 +13,10 @@ export const Card: React.FC<CardProps> = ({ card, onClick, isFocused, themeColor
   return (
     <div 
       className={twMerge(
-        'relative w-full aspect-square cursor-pointer perspective-1000',
-        isFocused && 'focus-ring',
-        card.isMatched && 'opacity-80 scale-105 transition-all duration-300'
+        'relative w-full aspect-square cursor-pointer perspective-1000 transition-all duration-300',
+        isFocused && 'ring-8 ring-yellow-400 ring-offset-4 scale-110 z-20 shadow-2xl',
+        !isFocused && 'hover:scale-105',
+        card.isMatched && 'opacity-90 scale-105 z-10'
       )}
       onClick={onClick}
     >

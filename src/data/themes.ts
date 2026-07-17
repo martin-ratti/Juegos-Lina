@@ -1,6 +1,5 @@
 import type { Theme } from '../types';
 
-// Placeholder images for now (they will be replaced with real ones or AI generated)
 export const THEMES: Theme[] = [
   {
     id: 'mickey',
@@ -8,12 +7,12 @@ export const THEMES: Theme[] = [
     description: '¡Encuentra a Mickey y sus amigos!',
     color: 'from-blue-400 to-blue-600',
     images: [
-      'https://api.dicebear.com/7.x/fun-emoji/svg?seed=Mickey',
-      'https://api.dicebear.com/7.x/fun-emoji/svg?seed=Minnie',
-      'https://api.dicebear.com/7.x/fun-emoji/svg?seed=Donald',
-      'https://api.dicebear.com/7.x/fun-emoji/svg?seed=Daisy',
-      'https://api.dicebear.com/7.x/fun-emoji/svg?seed=Goofy',
-      'https://api.dicebear.com/7.x/fun-emoji/svg?seed=Pluto',
+      '/images/mickey/1.png',
+      '/images/mickey/2.png',
+      '/images/mickey/3.png',
+      '/images/mickey/4.png',
+      '/images/mickey/5.png',
+      '/images/mickey/6.png',
     ],
   },
   {
@@ -22,12 +21,12 @@ export const THEMES: Theme[] = [
     description: '¡El mundo mágico de Barbie!',
     color: 'from-pink-400 to-pink-600',
     images: [
-      'https://api.dicebear.com/7.x/fun-emoji/svg?seed=Barbie1',
-      'https://api.dicebear.com/7.x/fun-emoji/svg?seed=Barbie2',
-      'https://api.dicebear.com/7.x/fun-emoji/svg?seed=Barbie3',
-      'https://api.dicebear.com/7.x/fun-emoji/svg?seed=Barbie4',
-      'https://api.dicebear.com/7.x/fun-emoji/svg?seed=Barbie5',
-      'https://api.dicebear.com/7.x/fun-emoji/svg?seed=Barbie6',
+      '/images/barbie/1.png',
+      '/images/barbie/2.png',
+      '/images/barbie/3.png',
+      '/images/barbie/4.png',
+      '/images/barbie/5.png',
+      '/images/barbie/6.png',
     ],
   },
   {
@@ -36,12 +35,12 @@ export const THEMES: Theme[] = [
     description: '¡Princesas Disney!',
     color: 'from-yellow-400 to-amber-600',
     images: [
-      'https://api.dicebear.com/7.x/fun-emoji/svg?seed=Elsa',
-      'https://api.dicebear.com/7.x/fun-emoji/svg?seed=Ariel',
-      'https://api.dicebear.com/7.x/fun-emoji/svg?seed=Bella',
-      'https://api.dicebear.com/7.x/fun-emoji/svg?seed=Cenicienta',
-      'https://api.dicebear.com/7.x/fun-emoji/svg?seed=Rapunzel',
-      'https://api.dicebear.com/7.x/fun-emoji/svg?seed=Moana',
+      '/images/princesas/1.png',
+      '/images/princesas/2.png',
+      '/images/princesas/3.png',
+      '/images/princesas/4.png',
+      '/images/princesas/5.png',
+      '/images/princesas/6.png',
     ],
   },
   {
