@@ -18,11 +18,11 @@ export const Card: React.FC<CardProps> = ({ card, onClick, isFocused, isShaking,
       className={clsx(
         'relative w-full aspect-square cursor-pointer perspective-1000 transition-all duration-300 rounded-xl sm:rounded-2xl',
         // Focused state
-        isFocused && !card.isMatched && 'ring-4 sm:ring-[6px] ring-yellow-400 ring-offset-2 sm:ring-offset-4 ring-offset-transparent scale-105 sm:scale-110 z-20 shadow-[0_0_25px_rgba(255,215,0,0.5)]',
+        isFocused && 'ring-4 sm:ring-[6px] ring-yellow-400 ring-offset-2 sm:ring-offset-4 ring-offset-transparent scale-105 sm:scale-110 z-20 shadow-[0_0_25px_rgba(255,215,0,0.5)]',
         // Idle state
         !isFocused && !card.isMatched && 'hover:scale-105 hover:shadow-xl',
-        // Matched state
-        card.isMatched && 'shadow-[0_0_20px_rgba(34,197,94,0.4)] ring-2 sm:ring-4 ring-green-400/80 scale-[0.95]',
+        // Matched state (when not focused)
+        card.isMatched && !isFocused && 'shadow-[0_0_20px_rgba(34,197,94,0.4)] ring-2 sm:ring-4 ring-green-400/80 scale-[0.95]',
       )}
       onClick={onClick}
     >
