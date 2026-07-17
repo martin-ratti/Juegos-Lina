@@ -265,10 +265,10 @@ export const RompecabezasGame: React.FC = () => {
         <div className="w-20 shrink-0"></div>
       </header>
 
-      <main className="flex-1 flex flex-col items-center justify-between py-2 sm:py-6 px-2 sm:px-4">
+      <main className="flex-1 flex flex-col lg:flex-row items-center justify-center lg:justify-evenly gap-4 lg:gap-8 py-2 sm:py-6 px-2 sm:px-4 max-w-7xl mx-auto w-full">
         
         {/* Silhouette Center */}
-        <div className="relative w-[300px] h-[400px] sm:w-[350px] sm:h-[480px] mt-2 sm:mt-6 bg-white/90 rounded-[3rem] border-4 border-white/70 shadow-2xl flex flex-col items-center p-6 animate-fade-in">
+        <div className="relative w-[300px] h-[400px] sm:w-[350px] sm:h-[480px] lg:scale-110 xl:scale-125 origin-center mt-2 sm:mt-6 lg:mt-0 bg-white/90 rounded-[3rem] border-4 border-white/70 shadow-2xl flex flex-col items-center p-6 animate-fade-in shrink-0">
           
           {/* Helper overlay when piece is selected */}
           {selectedPiece && (
@@ -357,7 +357,7 @@ export const RompecabezasGame: React.FC = () => {
 
         {/* Scattered Pieces Bank */}
         <div className={clsx(
-          "w-full max-w-2xl mt-4 sm:mt-8 mb-4 p-4 rounded-3xl transition-all duration-500",
+          "w-full max-w-2xl lg:max-w-md xl:max-w-lg mt-4 sm:mt-8 lg:mt-0 mb-4 lg:mb-0 p-4 rounded-3xl transition-all duration-500",
           selectedPiece ? "opacity-50 grayscale-[30%] pointer-events-none" : "opacity-100 bg-white/20"
         )}>
           <div className="flex flex-wrap justify-center gap-2 sm:gap-4 min-h-[120px]">

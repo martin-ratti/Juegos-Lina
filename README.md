@@ -116,21 +116,23 @@ Juegos-Lina/
 │       └── familia/              # Próximamente
 ├── src/
 │   ├── components/
-│   │   ├── Card.tsx              # Ficha individual con flip 3D
-│   │   ├── GameBoard.tsx         # Grilla del tablero
-│   │   ├── Header.tsx            # Cabecera con estrellas de progreso
-│   │   ├── ThemeSelector.tsx     # Selector de temas
-│   │   └── WinScreen.tsx         # Pantalla de victoria con confeti
+│   │   ├── GameSelector.tsx      # Selector principal de juegos
+│   │   └── Header.tsx            # Cabecera compartida
+│   ├── games/
+│   │   ├── memotest/             # Todo lo relacionado al Memotest
+│   │   │   ├── components/
+│   │   │   ├── hooks/
+│   │   │   └── pages/
+│   │   └── rompecabezas/         # Todo lo relacionado al Rompecabezas
+│   │       └── RompecabezasGame.tsx
 │   ├── hooks/
-│   │   ├── useGameLogic.ts       # Lógica del memotest
 │   │   └── useKeyboard.ts       # Navegación por flechas del teclado
 │   ├── data/
-│   │   └── themes.ts            # Definición de temas y fichas
+│   │   └── themes.ts            # Definición de temas
 │   ├── types/
 │   │   └── index.ts             # Tipos TypeScript
 │   ├── pages/
-│   │   ├── Home.tsx             # Pantalla principal
-│   │   └── Game.tsx             # Pantalla del juego
+│   │   └── Home.tsx             # Pantalla principal
 │   ├── App.tsx                  # Rutas de la app
 │   ├── main.tsx                 # Entry point
 │   └── index.css                # Estilos globales y animaciones
@@ -167,7 +169,7 @@ Juegos-Lina/
 },
 ```
 
-4. Opcionalmente, agregar el emoji y el ícono en `ThemeSelector.tsx`
+4. Editar `ThemeSelector.tsx` (`src/games/memotest/components/ThemeSelector.tsx`) para agregar un ícono representativo de Lucide React si lo deseas.
 
 ---
 
