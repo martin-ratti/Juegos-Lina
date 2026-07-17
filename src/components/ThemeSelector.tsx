@@ -24,7 +24,7 @@ export const ThemeSelector: React.FC = () => {
   const handleSelect = (index: number) => {
     const theme = THEMES[index];
     if (theme && !theme.comingSoon) {
-      navigate(`/jugar/${theme.id}`);
+      navigate(`/memotest/jugar/${theme.id}`);
     }
   };
 

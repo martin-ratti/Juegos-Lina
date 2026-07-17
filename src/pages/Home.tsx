@@ -1,4 +1,4 @@
-import { ThemeSelector } from '../components/ThemeSelector';
+import { GameSelector } from '../components/GameSelector';
 import { Sparkles } from 'lucide-react';
 
 export const Home: React.FC = () => {
@@ -18,10 +18,10 @@ export const Home: React.FC = () => {
         </p>
       </div>
 
-      {/* Theme selector */}
-      <ThemeSelector />
+      {/* Game selector */}
+      <GameSelector />
       
-      {/* Keyboard hint — hidden on very small screens (touch devices) */}
+      {/* Keyboard hint */}
       <div className="hidden sm:block mt-auto py-6 animate-fade-in" style={{ animationDelay: '600ms', animationFillMode: 'backwards' }}>
         <div className="flex items-center gap-2 text-purple-800/50 font-bold text-sm bg-white/40 backdrop-blur-sm px-5 py-2.5 rounded-full border border-white/50">
           <span>Flechitas</span>
@@ -32,7 +32,6 @@ export const Home: React.FC = () => {
         </div>
       </div>
 
-      {/* Spacer for mobile so content doesn't touch bottom */}
       <div className="sm:hidden h-6" />
     </div>
   );
