@@ -3,7 +3,7 @@ import { Sparkles, Gamepad2 } from 'lucide-react';
 
 export const Home: React.FC = () => {
   return (
-    <div className="min-h-dvh flex flex-col items-center pt-6 sm:pt-10 md:pt-14 px-3 sm:px-4">
+    <div className="min-h-dvh flex flex-col items-center pt-8 sm:pt-12 md:pt-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50">
       {/* Title section */}
       <div className="text-center mb-4 sm:mb-6 relative animate-slide-up">
         <Sparkles className="absolute -top-3 -left-4 sm:-top-4 sm:-left-6 w-7 h-7 sm:w-10 sm:h-10 text-yellow-400 animate-pulse" />
