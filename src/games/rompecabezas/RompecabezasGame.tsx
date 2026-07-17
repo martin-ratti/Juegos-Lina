@@ -26,77 +26,114 @@ const PIECES: PieceInfo[] = [
 // Skin tone: #FFD3B6, Shirt: #FF8BA7, Pants: #333333, Shoes: #FFC6FF, Hair: #A28089
 
 const SvgHead = () => (
-  <svg viewBox="0 0 100 100" className="w-full h-full drop-shadow-md overflow-visible">
-    {/* Hair back */}
-    <circle cx="50" cy="50" r="45" fill="#A28089" />
+  <svg viewBox="0 0 100 100" className="w-full h-full drop-shadow-lg overflow-visible">
+    {/* Back hair */}
+    <path d="M 20 50 Q 10 80 30 90 Q 50 100 70 90 Q 90 80 80 50 Z" fill="#6B4423" />
+    {/* Ears */}
+    <circle cx="15" cy="55" r="8" fill="#FFCBA4" />
+    <circle cx="85" cy="55" r="8" fill="#FFCBA4" />
+    {/* Inner ears */}
+    <circle cx="15" cy="55" r="4" fill="#E8A598" />
+    <circle cx="85" cy="55" r="4" fill="#E8A598" />
     {/* Face */}
-    <circle cx="50" cy="55" r="40" fill="#FFD3B6" />
-    {/* Bangs */}
-    <path d="M 15 45 Q 50 10 85 45 Q 50 30 15 45" fill="#A28089" />
-    {/* Eyes */}
-    <circle cx="35" cy="55" r="5" fill="#333" />
-    <circle cx="65" cy="55" r="5" fill="#333" />
-    {/* Sparkles in eyes */}
-    <circle cx="33" cy="53" r="1.5" fill="#FFF" />
-    <circle cx="63" cy="53" r="1.5" fill="#FFF" />
-    {/* Cheeks */}
-    <circle cx="25" cy="62" r="6" fill="#FF9EBB" opacity="0.5" />
-    <circle cx="75" cy="62" r="6" fill="#FF9EBB" opacity="0.5" />
-    {/* Smile */}
-    <path d="M 42 68 Q 50 75 58 68" fill="transparent" stroke="#333" strokeWidth="3" strokeLinecap="round" />
+    <rect x="20" y="20" width="60" height="70" rx="30" fill="#FFD3B6" />
+    {/* Hair front */}
+    <path d="M 15 40 Q 30 10 50 20 Q 70 10 85 40 Q 50 20 15 40 Z" fill="#8B5A2B" />
+    <path d="M 20 25 Q 50 0 80 25 Q 50 15 20 25 Z" fill="#6B4423" />
+    {/* Big cute eyes */}
+    <circle cx="35" cy="55" r="7" fill="#4A3018" />
+    <circle cx="65" cy="55" r="7" fill="#4A3018" />
+    {/* Sparkles */}
+    <circle cx="33" cy="53" r="2.5" fill="#FFF" />
+    <circle cx="36" cy="56" r="1" fill="#FFF" />
+    <circle cx="63" cy="53" r="2.5" fill="#FFF" />
+    <circle cx="66" cy="56" r="1" fill="#FFF" />
+    {/* Blush */}
+    <ellipse cx="25" cy="65" rx="6" ry="4" fill="#FF9EBB" opacity="0.6" />
+    <ellipse cx="75" cy="65" rx="6" ry="4" fill="#FF9EBB" opacity="0.6" />
+    {/* Cute nose */}
+    <path d="M 48 62 Q 50 65 52 62" fill="transparent" stroke="#E8A598" strokeWidth="2" strokeLinecap="round" />
+    {/* Happy Smile */}
+    <path d="M 40 70 Q 50 80 60 70" fill="transparent" stroke="#4A3018" strokeWidth="3" strokeLinecap="round" />
+    <path d="M 45 74 Q 50 78 55 74" fill="#FF9EBB" />
   </svg>
 );
 
 const SvgTorso = () => (
-  <svg viewBox="0 0 100 100" className="w-full h-full drop-shadow-md overflow-visible">
+  <svg viewBox="0 0 100 100" className="w-full h-full drop-shadow-lg overflow-visible">
     {/* Neck */}
-    <rect x="40" y="0" width="20" height="15" fill="#FFD3B6" rx="5" />
-    {/* Shirt */}
-    <path d="M 20 10 L 80 10 Q 95 10 95 30 L 90 90 Q 90 100 50 100 Q 10 100 10 90 L 5 30 Q 5 10 20 10 Z" fill="#FF8BA7" />
-    {/* Star on shirt */}
-    <path d="M 50 40 L 55 55 L 70 55 L 58 65 L 62 80 L 50 70 L 38 80 L 42 65 L 30 55 L 45 55 Z" fill="#FFD700" />
+    <rect x="40" y="0" width="20" height="20" fill="#FFCBA4" rx="5" />
+    {/* Shadow under neck */}
+    <rect x="40" y="15" width="20" height="5" fill="#E8A598" />
+    {/* Hoodie / Shirt */}
+    <path d="M 25 15 L 75 15 Q 95 20 90 40 L 85 90 Q 80 100 50 100 Q 20 100 15 90 L 10 40 Q 5 20 25 15 Z" fill="#FF6B6B" />
+    {/* Hoodie pocket */}
+    <path d="M 30 60 L 70 60 L 80 90 L 20 90 Z" fill="#FF5252" rx="5" />
+    {/* Hoodie strings */}
+    <path d="M 45 20 L 45 40" stroke="#FFF" strokeWidth="2" strokeLinecap="round" />
+    <path d="M 55 20 L 55 40" stroke="#FFF" strokeWidth="2" strokeLinecap="round" />
+    <circle cx="45" cy="40" r="2" fill="#FFF" />
+    <circle cx="55" cy="40" r="2" fill="#FFF" />
     {/* Collar */}
-    <path d="M 35 10 Q 50 25 65 10" fill="transparent" stroke="#FFF" strokeWidth="4" strokeLinecap="round" />
+    <path d="M 35 15 Q 50 30 65 15" fill="#FF5252" />
   </svg>
 );
 
 const SvgArmLeft = () => (
-  <svg viewBox="0 0 50 100" className="w-full h-full drop-shadow-md overflow-visible">
+  <svg viewBox="0 0 50 100" className="w-full h-full drop-shadow-lg overflow-visible">
     {/* Hand */}
-    <circle cx="25" cy="85" r="15" fill="#FFD3B6" />
+    <circle cx="25" cy="85" r="16" fill="#FFD3B6" />
+    {/* Fingers */}
+    <circle cx="12" cy="80" r="5" fill="#FFCBA4" />
+    <circle cx="15" cy="92" r="5" fill="#FFCBA4" />
     {/* Sleeve */}
-    <path d="M 40 5 L 10 10 Q 0 40 10 70 L 40 75 Q 50 40 40 5 Z" fill="#FF8BA7" />
+    <path d="M 40 5 L 15 15 Q 5 40 10 70 L 40 75 Q 50 40 40 5 Z" fill="#FF6B6B" />
+    <path d="M 10 70 L 40 75 L 42 65 L 12 60 Z" fill="#FF5252" />
   </svg>
 );
 
 const SvgArmRight = () => (
-  <svg viewBox="0 0 50 100" className="w-full h-full drop-shadow-md overflow-visible">
+  <svg viewBox="0 0 50 100" className="w-full h-full drop-shadow-lg overflow-visible">
     {/* Hand */}
-    <circle cx="25" cy="85" r="15" fill="#FFD3B6" />
+    <circle cx="25" cy="85" r="16" fill="#FFD3B6" />
+    {/* Fingers */}
+    <circle cx="38" cy="80" r="5" fill="#FFCBA4" />
+    <circle cx="35" cy="92" r="5" fill="#FFCBA4" />
     {/* Sleeve */}
-    <path d="M 10 5 L 40 10 Q 50 40 40 70 L 10 75 Q 0 40 10 5 Z" fill="#FF8BA7" />
+    <path d="M 10 5 L 35 15 Q 45 40 40 70 L 10 75 Q 0 40 10 5 Z" fill="#FF6B6B" />
+    <path d="M 40 70 L 10 75 L 8 65 L 38 60 Z" fill="#FF5252" />
   </svg>
 );
 
 const SvgLegLeft = () => (
-  <svg viewBox="0 0 60 100" className="w-full h-full drop-shadow-md overflow-visible">
-    {/* Shoe */}
-    <path d="M 5 80 Q 5 100 30 100 Q 55 100 55 80 Q 55 70 30 70 Q 5 70 5 80 Z" fill="#FFC6FF" />
+  <svg viewBox="0 0 60 100" className="w-full h-full drop-shadow-lg overflow-visible">
     {/* Leg */}
-    <rect x="20" y="40" width="20" height="40" fill="#FFD3B6" />
+    <rect x="22" y="30" width="20" height="50" fill="#4ECDC4" />
     {/* Shorts */}
-    <path d="M 10 0 L 50 0 L 45 50 Q 30 60 15 50 Z" fill="#333333" />
+    <path d="M 15 0 L 50 0 L 48 40 Q 32 45 18 40 Z" fill="#45B7D1" />
+    {/* Sock */}
+    <rect x="22" y="70" width="20" height="15" fill="#FFF" />
+    <rect x="22" y="72" width="20" height="3" fill="#FF6B6B" />
+    <rect x="22" y="78" width="20" height="3" fill="#4ECDC4" />
+    {/* Shoe */}
+    <path d="M 10 85 Q 10 100 32 100 Q 55 100 50 85 Q 45 75 32 75 Q 10 75 10 85 Z" fill="#FFE66D" />
+    <path d="M 15 100 L 45 100" stroke="#FFF" strokeWidth="4" strokeLinecap="round" />
   </svg>
 );
 
 const SvgLegRight = () => (
-  <svg viewBox="0 0 60 100" className="w-full h-full drop-shadow-md overflow-visible">
-    {/* Shoe */}
-    <path d="M 5 80 Q 5 100 30 100 Q 55 100 55 80 Q 55 70 30 70 Q 5 70 5 80 Z" fill="#FFC6FF" />
+  <svg viewBox="0 0 60 100" className="w-full h-full drop-shadow-lg overflow-visible">
     {/* Leg */}
-    <rect x="20" y="40" width="20" height="40" fill="#FFD3B6" />
+    <rect x="18" y="30" width="20" height="50" fill="#4ECDC4" />
     {/* Shorts */}
-    <path d="M 10 0 L 50 0 L 45 50 Q 30 60 15 50 Z" fill="#333333" />
+    <path d="M 10 0 L 45 0 L 42 40 Q 28 45 12 40 Z" fill="#45B7D1" />
+    {/* Sock */}
+    <rect x="18" y="70" width="20" height="15" fill="#FFF" />
+    <rect x="18" y="72" width="20" height="3" fill="#FF6B6B" />
+    <rect x="18" y="78" width="20" height="3" fill="#4ECDC4" />
+    {/* Shoe */}
+    <path d="M 10 85 Q 5 100 28 100 Q 50 100 50 85 Q 50 75 28 75 Q 15 75 10 85 Z" fill="#FFE66D" />
+    <path d="M 15 100 L 45 100" stroke="#FFF" strokeWidth="4" strokeLinecap="round" />
   </svg>
 );
 
@@ -112,12 +149,14 @@ const PieceRenderer = ({ id }: { id: PieceId }) => {
   }
 };
 
-const SlotRenderer = ({ isTarget }: { isTarget?: boolean }) => (
+const SlotRenderer = ({ isTarget, id }: { isTarget?: boolean, id: PieceId }) => (
   <div className={clsx(
-    "w-full h-full border-4 border-dashed rounded-[30%] transition-all duration-300 flex items-center justify-center",
-    isTarget ? "border-yellow-400 bg-yellow-400/20 shadow-[0_0_15px_rgba(253,224,71,0.5)] animate-pulse" : "border-white/40 bg-white/10"
+    "w-full h-full border-4 border-dashed rounded-[30%] transition-all duration-300 flex items-center justify-center overflow-visible relative",
+    isTarget ? "border-yellow-400 bg-yellow-400/20 shadow-[0_0_15px_rgba(253,224,71,0.5)] animate-pulse z-10 scale-105" : "border-white/40 bg-white/10"
   )}>
-    <div className="w-2 h-2 rounded-full bg-white/40"></div>
+    <div className="absolute inset-0 p-1 opacity-25 grayscale brightness-50 flex items-center justify-center pointer-events-none">
+      <PieceRenderer id={id} />
+    </div>
   </div>
 );
 
@@ -246,7 +285,7 @@ export const RompecabezasGame: React.FC = () => {
             )}
           >
             {placedPieces.includes('head') ? <PieceRenderer id="head" /> : 
-             <div className="w-full h-full p-2"><SlotRenderer isTarget={missingSlots[boardFocusedIndex] === 'head' && selectedPiece !== null} /></div>}
+             <div className="w-full h-full p-2"><SlotRenderer id="head" isTarget={missingSlots[boardFocusedIndex] === 'head' && selectedPiece !== null} /></div>}
           </div>
           
           {/* LEFT ARM */}
@@ -259,7 +298,7 @@ export const RompecabezasGame: React.FC = () => {
             )}
           >
             {placedPieces.includes('leftArm') ? <PieceRenderer id="leftArm" /> : 
-             <div className="w-full h-full"><SlotRenderer isTarget={missingSlots[boardFocusedIndex] === 'leftArm' && selectedPiece !== null} /></div>}
+             <div className="w-full h-full"><SlotRenderer id="leftArm" isTarget={missingSlots[boardFocusedIndex] === 'leftArm' && selectedPiece !== null} /></div>}
           </div>
           
           {/* RIGHT ARM */}
@@ -272,7 +311,7 @@ export const RompecabezasGame: React.FC = () => {
             )}
           >
             {placedPieces.includes('rightArm') ? <PieceRenderer id="rightArm" /> : 
-             <div className="w-full h-full"><SlotRenderer isTarget={missingSlots[boardFocusedIndex] === 'rightArm' && selectedPiece !== null} /></div>}
+             <div className="w-full h-full"><SlotRenderer id="rightArm" isTarget={missingSlots[boardFocusedIndex] === 'rightArm' && selectedPiece !== null} /></div>}
           </div>
           
           {/* TORSO */}
@@ -285,7 +324,7 @@ export const RompecabezasGame: React.FC = () => {
             )}
           >
             {placedPieces.includes('torso') ? <PieceRenderer id="torso" /> : 
-             <div className="w-full h-full p-2"><SlotRenderer isTarget={missingSlots[boardFocusedIndex] === 'torso' && selectedPiece !== null} /></div>}
+             <div className="w-full h-full p-2"><SlotRenderer id="torso" isTarget={missingSlots[boardFocusedIndex] === 'torso' && selectedPiece !== null} /></div>}
           </div>
           
           {/* LEFT LEG */}
@@ -298,7 +337,7 @@ export const RompecabezasGame: React.FC = () => {
             )}
           >
             {placedPieces.includes('leftLeg') ? <PieceRenderer id="leftLeg" /> : 
-             <div className="w-full h-full p-1"><SlotRenderer isTarget={missingSlots[boardFocusedIndex] === 'leftLeg' && selectedPiece !== null} /></div>}
+             <div className="w-full h-full p-1"><SlotRenderer id="leftLeg" isTarget={missingSlots[boardFocusedIndex] === 'leftLeg' && selectedPiece !== null} /></div>}
           </div>
 
           {/* RIGHT LEG */}
@@ -311,7 +350,7 @@ export const RompecabezasGame: React.FC = () => {
             )}
           >
             {placedPieces.includes('rightLeg') ? <PieceRenderer id="rightLeg" /> : 
-             <div className="w-full h-full p-1"><SlotRenderer isTarget={missingSlots[boardFocusedIndex] === 'rightLeg' && selectedPiece !== null} /></div>}
+             <div className="w-full h-full p-1"><SlotRenderer id="rightLeg" isTarget={missingSlots[boardFocusedIndex] === 'rightLeg' && selectedPiece !== null} /></div>}
           </div>
           
         </div>
