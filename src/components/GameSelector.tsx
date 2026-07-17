@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { clsx } from 'clsx';
 import { useKeyboard } from '../hooks/useKeyboard';
-import { Puzzle, PartyPopper } from 'lucide-react';
+import { Puzzle, Smile } from 'lucide-react';
 
 const GAMES = [
   {
@@ -14,13 +14,13 @@ const GAMES = [
     path: '/memotest',
   },
   {
-    id: 'globos',
-    name: 'Explota Globos',
-    emoji: '🎈',
-    description: '¡Reventá todos los globos!',
-    color: 'from-orange-400 to-red-500',
-    icon: PartyPopper,
-    path: '/globos',
+    id: 'rompecabezas',
+    name: 'Cuerpo Humano',
+    emoji: '👦',
+    description: '¡Armá el muñeco!',
+    color: 'from-blue-400 to-cyan-500',
+    icon: Smile,
+    path: '/rompecabezas',
   },
 ];
 

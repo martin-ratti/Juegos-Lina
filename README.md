@@ -13,25 +13,20 @@ Una colección de juegos educativos y divertidos diseñados especialmente para *
 
 ### 🧠 Memotest
 - **Grilla 3×4** (6 pares = 12 fichas) — ideal para niños de 3 años
-- **3 temas disponibles:**
-  - 🐭 **Mickey Mouse** — Mickey, Minnie, Donald, Daisy, Goofy y Pluto
-  - 💖 **Barbie** — Barbie Baila, Fashion, Surf, y más
-  - 👸 **Princesas Disney** — Elsa, Ariel, Bella, Cenicienta, Rapunzel y Blancanieves
-  - 👨‍👩‍👧 **Familia** — *Próximamente*
-- **Navegación 100% por teclado:**
-  - `←` `→` `↑` `↓` para moverse entre fichas
-  - `Enter` / `Espacio` para voltear una ficha
-  - `Escape` para volver al menú
-- **Sin presión de tiempo** — no hay cronómetro ni penalizaciones
-- **Feedback positivo constante** — confeti al encontrar un par, estrellas de progreso, animación de victoria
+- **3 temas disponibles:** Mickey Mouse, Barbie, Princesas Disney
+- Navegación 100% por teclado o táctil
+- Feedback positivo constante con confeti y animaciones
+
+### 👦 Rompecabezas del Cuerpo Humano
+- Enseña las partes del cuerpo (cabeza, torso, brazos, piernas)
+- Silueta central con auto-encaje
+- Sin distracciones, piezas estéticas hechas en CSS puro
+- Navegable completamente con las flechas del teclado
 
 ### 🎨 Diseño
-- Fichas grandes y fáciles de ver para niños pequeños
-- Foto personalizada de Lina en el dorso de cada ficha
-- Animaciones suaves: flip 3D, pop-in escalonado, shake en error, confeti en acierto
-- Glassmorphism y gradientes vibrantes
-- Tipografía infantil (Fredoka One + Nunito)
-- **100% responsive** — funciona en celular, tablet y desktop
+- Fichas grandes y fáciles de ver
+- Animaciones suaves (pop-in, bounce, confeti)
+- 100% responsive (celular, tablet, desktop)
 
 ---
 
@@ -182,10 +177,8 @@ Juegos-Lina/
 - 👨‍👩‍👧 **Familia** — Memotest con fotos de la familia
 
 ### Nuevos juegos
-- 🎈 **Explota Globos** — Globos y burbujas caen por la pantalla. ¡Hay que tocarlos o presionar cualquier tecla para explotarlos! Ideal para coordinación ojo-mano.
 - 🎹 **Piano de Animales** — Un teclado donde cada tecla muestra un animal y reproduce su sonido. Perfecto para aprender causa y efecto.
-- 🧩 **Rompecabezas Simples** — Imágenes divididas en 2 o 4 piezas grandes que hay que arrastrar a su lugar.
-- 🔷 **Colores y Formas** — Relacionar objetos con su color o forma (ej: poner la estrella amarilla en el hueco de la estrella).
+- 🔷 **Colores y Formas** — Relacionar objetos con su color o forma.
 
 ---
 
