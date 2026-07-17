@@ -1,0 +1,52 @@
+@import "tailwindcss";
+
+@theme {
+  --animate-float: float 3s ease-in-out infinite;
+  --animate-pulse-glow: pulse-glow 2s infinite;
+  --animate-bounce-slight: bounce-slight 0.5s ease-in-out;
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0) }
+    50% { transform: translateY(-10px) }
+  }
+  
+  @keyframes pulse-glow {
+    0% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.7); }
+    70% { box-shadow: 0 0 0 15px rgba(255, 215, 0, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0); }
+  }
+
+  @keyframes bounce-slight {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+  }
+}
+
+@utility perspective-1000 {
+  perspective: 1000px;
+}
+@utility transform-style-3d {
+  transform-style: preserve-3d;
+}
+@utility backface-hidden {
+  backface-visibility: hidden;
+}
+@utility rotate-y-180 {
+  transform: rotateY(180deg);
+}
+
+@layer base {
+  body {
+    background-image: linear-gradient(to bottom right, #fce4ec, #e8eaf6, #e0f7fa);
+    background-attachment: fixed;
+    min-height: 100vh;
+    font-family: 'Nunito', sans-serif;
+    color: #4a148c;
+    overflow-x: hidden;
+    margin: 0;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Fredoka One', cursive;
+  }
+}
