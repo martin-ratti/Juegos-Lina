@@ -31,8 +31,8 @@ export const ThemeSelector: React.FC = () => {
   });
 
   return (
-    <div className="w-full max-w-4xl mx-auto px-2 sm:px-4 py-4 sm:py-6">
-      <div className="grid grid-cols-2 gap-3 sm:gap-5 md:gap-6">
+    <div className="w-full max-w-5xl mx-auto px-3 sm:px-5 py-5 sm:py-8">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8">
         {THEMES.map((theme, index) => {
           const isFocused = focusedIndex === index;
           
@@ -55,20 +55,20 @@ export const ThemeSelector: React.FC = () => {
               <div className="absolute -top-6 -right-6 w-20 sm:w-24 h-20 sm:h-24 bg-white/10 rounded-full" />
               <div className="absolute -bottom-4 -left-4 w-16 sm:w-20 h-16 sm:h-20 bg-white/10 rounded-full" />
               
-              <div className="relative p-4 sm:p-6 md:p-8 h-32 sm:h-44 md:h-52 flex flex-col items-center justify-center text-center gap-1 sm:gap-2">
-                <div className="mb-0.5 sm:mb-1">
+              <div className="relative p-3 sm:p-5 md:p-6 h-36 sm:h-48 md:h-56 flex flex-col items-center justify-center text-center gap-1.5 sm:gap-3 group-hover:scale-[1.02] transition-transform duration-300">
+                <div className="p-2 sm:p-3 bg-white/20 rounded-full shadow-inner backdrop-blur-sm">
                   {THEME_ICONS[theme.id]}
                 </div>
-                <h2 className="text-xl sm:text-3xl md:text-4xl text-white drop-shadow-lg flex items-center gap-1 sm:gap-2">
+                <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-white drop-shadow-md">
                   {theme.name}
                 </h2>
-                <p className="text-white/90 text-xs sm:text-base md:text-lg font-bold">
-                  {theme.comingSoon ? '🔒 Próximamente...' : theme.description}
+                <p className="text-white/90 text-xs sm:text-sm md:text-base font-semibold bg-black/10 px-3 py-1 rounded-full backdrop-blur-sm">
+                  {theme.comingSoon ? 'Próximamente...' : theme.description}
                 </p>
                 
                 {theme.comingSoon && (
-                  <div className="absolute top-2 right-2 sm:top-3 sm:right-3 bg-black/40 p-1.5 sm:p-2 rounded-full">
-                    <Lock className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
+                  <div className="absolute top-3 right-3 bg-black/40 p-2 rounded-full backdrop-blur-md shadow-lg">
+                    <Lock className="w-4 h-4 text-white" />
                   </div>
                 )}
               </div>

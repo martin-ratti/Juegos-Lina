@@ -406,7 +406,7 @@ export const RompecabezasGame: React.FC = () => {
                   )}
                   style={{ animationDelay: `${index * 100}ms` }}
                 >
-                  <div className="w-16 h-16 sm:w-20 sm:h-20 flex items-center justify-center pointer-events-none">
+                  <div className="w-24 h-24 sm:w-32 sm:h-32 flex items-center justify-center pointer-events-none">
                     <PieceRenderer id={piece.id} />
                   </div>
                 </button>

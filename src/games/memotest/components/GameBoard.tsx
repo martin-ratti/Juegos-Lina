@@ -43,7 +43,7 @@ export const GameBoard: React.FC<GameBoardProps> = ({ cards, theme, onCardClick,
   if (cards.length === 0) return null;
 
   return (
-    <div className="w-full max-w-[min(100%,32rem)] sm:max-w-2xl md:max-w-4xl lg:max-w-[90vw] xl:max-w-6xl mx-auto p-3 sm:p-6 md:p-8 bg-white/90 rounded-2xl sm:rounded-[2rem] shadow-2xl border-2 border-white/50 animate-fade-in">
+    <div className="w-full max-w-[min(100%,36rem)] sm:max-w-3xl md:max-w-5xl lg:max-w-[95vw] xl:max-w-[95vw] 2xl:max-w-[1800px] mx-auto p-3 sm:p-6 md:p-8 bg-white/90 rounded-2xl sm:rounded-[2rem] shadow-2xl border-2 border-white/50 animate-fade-in">
       {/* Extra padding so scale on focused cards doesn't get clipped */}
       <div className="p-1 sm:p-2 md:p-3">
         <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-6 gap-2 sm:gap-3 md:gap-4 lg:gap-5">

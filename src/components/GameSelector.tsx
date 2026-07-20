@@ -64,14 +64,14 @@ export const GameSelector: React.FC = () => {
               <div className="absolute -top-8 -right-8 w-24 sm:w-32 h-24 sm:h-32 bg-white/10 rounded-full" />
               <div className="absolute -bottom-6 -left-6 w-20 sm:w-28 h-20 sm:h-28 bg-white/10 rounded-full" />
 
-              <div className="relative p-6 sm:p-8 md:p-12 h-48 sm:h-64 md:h-72 lg:h-80 flex flex-col items-center justify-center text-center gap-3 sm:gap-4">
-                <div className="p-4 bg-white/20 rounded-full backdrop-blur-md shadow-inner mb-2 group-hover:scale-110 transition-transform">
-                  <Icon className="w-14 h-14 sm:w-20 sm:h-20 md:w-24 md:h-24 text-white drop-shadow-md" />
+              <div className="relative p-4 sm:p-6 md:p-8 h-40 sm:h-48 md:h-56 lg:h-64 flex flex-col items-center justify-center text-center gap-2 sm:gap-3">
+                <div className="p-3 bg-white/20 rounded-full backdrop-blur-md shadow-inner group-hover:scale-110 transition-transform duration-300">
+                  <Icon className="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 text-white drop-shadow-md" />
                 </div>
-                <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white drop-shadow-lg tracking-tight">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white drop-shadow-lg tracking-tight">
                   {game.name}
                 </h2>
-                <p className="text-white/90 text-base sm:text-lg md:text-xl font-bold bg-black/10 px-4 py-1.5 rounded-full backdrop-blur-sm">
+                <p className="text-white/90 text-sm sm:text-base md:text-lg font-bold bg-black/10 px-3 py-1 sm:px-4 sm:py-1.5 rounded-full backdrop-blur-sm">
                   {game.description}
                 </p>
               </div>
