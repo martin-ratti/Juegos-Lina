@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import type { CardItem } from '../../../types';
 import { clsx } from 'clsx';
 import { Star, Sparkles } from 'lucide-react';
@@ -10,7 +11,7 @@ interface CardProps {
   themeColor: string;
 }
 
-export const Card: React.FC<CardProps> = ({ card, onClick, isFocused, isShaking, themeColor }) => {
+export const Card = memo<CardProps>(function Card({ card, onClick, isFocused, isShaking, themeColor }) {
   const isRevealed = card.isFlipped || card.isMatched;
 
   return (
@@ -25,6 +26,9 @@ export const Card: React.FC<CardProps> = ({ card, onClick, isFocused, isShaking,
         card.isMatched && !isFocused && 'shadow-[0_0_20px_rgba(34,197,94,0.4)] ring-2 sm:ring-4 ring-green-400/80 scale-[0.95]',
       )}
       onClick={onClick}
+      role="button"
+      tabIndex={0}
+      aria-label={card.isMatched ? 'Par encontrado' : card.isFlipped ? 'Carta volteada' : 'Carta boca abajo'}
     >
       <div 
         className={clsx(
@@ -82,4 +86,4 @@ export const Card: React.FC<CardProps> = ({ card, onClick, isFocused, isShaking,
       </div>
     </div>
   );
-};
+});

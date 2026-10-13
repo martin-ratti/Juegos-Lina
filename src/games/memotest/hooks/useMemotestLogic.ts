@@ -1,16 +1,8 @@
 import { useState, useEffect, useCallback } from 'react';
 import type { CardItem, Theme } from '../../../types';
 import confetti from 'canvas-confetti';
+import { shuffle } from '../../../utils/shuffle';
 
-// Fisher-Yates shuffle — correct uniform distribution
-function shuffle<T>(array: T[]): T[] {
-  const arr = [...array];
-  for (let i = arr.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [arr[i], arr[j]] = [arr[j], arr[i]];
-  }
-  return arr;
-}
 
 export const useGameLogic = (theme: Theme | undefined) => {
   const [cards, setCards] = useState<CardItem[]>([]);
@@ -45,7 +37,19 @@ export const useGameLogic = (theme: Theme | undefined) => {
     initializeGame();
   }, [initializeGame]);
 
-  const handleCardClick = (index: number) => {
+  // Precarga de imágenes para transiciones suaves
+  useEffect(() => {
+    const cardBack = new Image();
+    cardBack.src = '/images/lina.jpg';
+    if (theme?.images) {
+      theme.images.forEach((src) => {
+        const img = new Image();
+        img.src = src;
+      });
+    }
+  }, [theme]);
+
+  const handleCardClick = useCallback((index: number) => {
     if (isLocked || cards[index].isMatched || flippedCards.includes(index)) {
       return;
     }
@@ -108,7 +112,7 @@ export const useGameLogic = (theme: Theme | undefined) => {
         }, 1800);
       }
     }
-  };
+  }, [isLocked, cards, flippedCards]);
 
   const isWon = totalPairs > 0 && matches === totalPairs && cards.length > 0;
 
