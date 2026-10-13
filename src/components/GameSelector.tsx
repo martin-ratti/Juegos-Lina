@@ -47,10 +47,12 @@ export const GameSelector: React.FC = () => {
           const Icon = game.icon;
 
           return (
-            <div
+            <button
+              type="button"
               key={game.id}
               onMouseEnter={() => setFocusedIndex(index)}
               onClick={() => handleSelect(index)}
+              aria-label={`Jugar ${game.name}`}
               className={clsx(
                 'group relative overflow-hidden rounded-[2rem] sm:rounded-[2.5rem] shadow-xl hover:shadow-2xl transition-all duration-300 transform animate-pop-in cursor-pointer border-4 border-white/40',
                 isFocused && 'scale-105 sm:scale-110 ring-[6px] ring-yellow-400 ring-offset-4 ring-offset-purple-50 z-10 shadow-[0_0_40px_rgba(255,215,0,0.6)] -translate-y-2',
@@ -75,7 +77,7 @@ export const GameSelector: React.FC = () => {
                   {game.description}
                 </p>
               </div>
-            </div>
+            </button>
           );
         })}
       </div>

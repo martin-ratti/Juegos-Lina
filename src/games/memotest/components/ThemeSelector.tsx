@@ -37,10 +37,13 @@ export const ThemeSelector: React.FC = () => {
           const isFocused = focusedIndex === index;
           
           return (
-            <div
+            <button
+              type="button"
               key={theme.id}
               onMouseEnter={() => setFocusedIndex(index)}
               onClick={() => handleSelect(index)}
+              aria-label={theme.comingSoon ? `${theme.name} - Próximamente` : `Jugar con tema ${theme.name}`}
+              disabled={theme.comingSoon}
               className={clsx(
                 'relative overflow-hidden rounded-2xl sm:rounded-3xl shadow-xl transition-all duration-300 transform animate-pop-in',
                 isFocused && !theme.comingSoon && 'scale-105 ring-4 sm:ring-[6px] ring-yellow-400 ring-offset-2 sm:ring-offset-4 ring-offset-transparent z-10 shadow-[0_0_30px_rgba(255,215,0,0.4)]',
@@ -72,7 +75,7 @@ export const ThemeSelector: React.FC = () => {
                   </div>
                 )}
               </div>
-            </div>
+            </button>
           );
         })}
       </div>
