@@ -5,9 +5,11 @@ import { Star, RefreshCw, Home, PartyPopper, Sparkles } from 'lucide-react';
 
 interface WinScreenProps {
   onRestart: () => void;
+  title?: string;
+  message?: string;
 }
 
-export const WinScreen: React.FC<WinScreenProps> = ({ onRestart }) => {
+export const WinScreen: React.FC<WinScreenProps> = ({ onRestart, title, message }) => {
   const navigate = useNavigate();
   const confettiTimerRef = useRef<number | null>(null);
 
@@ -76,11 +78,15 @@ export const WinScreen: React.FC<WinScreenProps> = ({ onRestart }) => {
         </div>
 
         <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-pink-500 mb-2 sm:mb-3 drop-shadow-md">
-          ¡Ganaste Lina!
+          {title ?? '¡Ganaste Lina!'}
         </h2>
         
         <p className="flex items-center justify-center gap-2 text-base sm:text-lg md:text-xl text-purple-700 mb-5 sm:mb-8 font-bold">
-          ¡Encontraste todas las parejas! <Sparkles className="w-5 h-5 text-yellow-400" />
+          {message ?? (
+            <>
+              ¡Encontraste todas las parejas! <Sparkles className="w-5 h-5 text-yellow-400" />
+            </>
+          )}
         </p>
 
         <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">

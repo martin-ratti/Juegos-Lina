@@ -3,7 +3,7 @@ import { THEMES } from '../../../data/themes';
 import { useGameLogic } from '../hooks/useMemotestLogic';
 import { Header } from '../../../components/Header';
 import { GameBoard } from '../components/GameBoard';
-import { WinScreen } from '../components/WinScreen';
+import { WinScreen } from '../../../components/WinScreen';
 import type { ThemeId } from '../../../types';
 
 export const Game: React.FC = () => {
