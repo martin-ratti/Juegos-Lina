@@ -3,52 +3,68 @@ import type { Theme } from '../types';
 export const THEMES: Theme[] = [
   {
     id: 'mickey',
-    name: 'Mickey Mouse',
-    description: '¡Encuentra a Mickey y sus amigos!',
-    color: 'from-red-400 to-red-600',
-    images: [
-      '/images/mickey/1.png', // Mickey
-      '/images/mickey/2.png', // Minnie
-      '/images/mickey/3.png', // Donald
-      '/images/mickey/4.png', // Daisy
-      '/images/mickey/5.png', // Goofy
-      '/images/mickey/6.png', // Pluto
+    name: 'Mickey y amigos',
+    description: '¡Encontrá a Mickey y su banda!',
+    cardBg: 'bg-[#FFEAE5]',
+    tileBg: 'bg-[#F25C54]',
+    lipColor: 'shadow-[0_8px_0_#C83E37]',
+    cards: [
+      { image: '/images/mickey/1.png', label: 'Mickey Mouse' },
+      { image: '/images/mickey/2.png', label: 'Minnie Mouse' },
+      { image: '/images/mickey/3.png', label: 'Pato Donald' },
+      { image: '/images/mickey/4.png', label: 'Daisy' },
+      { image: '/images/mickey/5.png', label: 'Goofy' },
+      { image: '/images/mickey/6.png', label: 'Pluto' },
     ],
   },
   {
     id: 'barbie',
     name: 'Barbie',
     description: '¡El mundo mágico de Barbie!',
-    color: 'from-pink-400 to-fuchsia-500',
-    images: [
-      '/images/barbie/1.png', // Barbie Baila
-      '/images/barbie/2.png', // Barbie Fashion
-      '/images/barbie/3.png', // Barbie Frio
-      '/images/barbie/4.png', // Barbie Logo
-      '/images/barbie/5.png', // Barbie Perro
-      '/images/barbie/6.png', // Barbie Surf
+    cardBg: 'bg-[#FFE6F1]',
+    tileBg: 'bg-[#F25C94]',
+    lipColor: 'shadow-[0_8px_0_#C43B70]',
+    cards: [
+      { image: '/images/barbie/1.png', label: 'Barbie Bailarina' },
+      { image: '/images/barbie/2.png', label: 'Barbie Fashion' },
+      { image: '/images/barbie/3.png', label: 'Barbie Invierno' },
+      { image: '/images/barbie/4.png', label: 'Corazón Barbie' },
+      { image: '/images/barbie/5.png', label: 'Barbie y su Perrito' },
+      { image: '/images/barbie/6.png', label: 'Barbie Surfista' },
     ],
   },
   {
     id: 'princesas',
     name: 'Princesas',
-    description: '¡Princesas Disney!',
-    color: 'from-purple-400 to-indigo-500',
-    images: [
-      '/images/princesas/1.png', // Elsa
-      '/images/princesas/2.png', // Ariel
-      '/images/princesas/3.png', // Bella
-      '/images/princesas/4.png', // Cenicienta
-      '/images/princesas/5.png', // Rapunzel
-      '/images/princesas/6.png', // Blancanieves
+    description: '¡Princesas de cuento!',
+    cardBg: 'bg-[#F1E8FF]',
+    tileBg: 'bg-[#9B72F2]',
+    lipColor: 'shadow-[0_8px_0_#734CC9]',
+    cards: [
+      { image: '/images/princesas/1.png', label: 'Elsa' },
+      { image: '/images/princesas/2.png', label: 'Ariel' },
+      { image: '/images/princesas/3.png', label: 'Bella' },
+      { image: '/images/princesas/4.png', label: 'Cenicienta' },
+      { image: '/images/princesas/5.png', label: 'Rapunzel' },
+      { image: '/images/princesas/6.png', label: 'Blancanieves' },
     ],
   },
   {
     id: 'familia',
-    name: 'Familia',
-    description: '¡Próximamente fotos de la familia!',
-    color: 'from-green-400 to-emerald-500',
-    images: [],
-    comingSoon: true,
+    name: 'La familia',
+    description: '¡Las fotos de nuestra familia!',
+    cardBg: 'bg-[#E6F7EE]',
+    tileBg: 'bg-[#4EBA87]',
+    lipColor: 'shadow-[0_8px_0_#359468]',
+    cards: [
+      { image: '/images/familia/1.jpg', label: 'Foto de familia 1' },
+      { image: '/images/familia/2.jpg', label: 'Foto de familia 2' },
+      { image: '/images/familia/3.jpg', label: 'Foto de familia 3' },
+      { image: '/images/familia/4.jpg', label: 'Foto de familia 4' },
+      { image: '/images/familia/5.jpg', label: 'Foto de familia 5' },
+      { image: '/images/familia/6.jpg', label: 'Foto de familia 6' },
+      { image: '/images/familia/7.jpg', label: 'Nico' },
+      { image: '/images/familia/8.jpg', label: 'Foto de familia 8' },
+    ],
   },
 ];

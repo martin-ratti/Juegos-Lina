@@ -1,89 +1,91 @@
 import { memo } from 'react';
-import type { CardItem } from '../../../types';
 import { clsx } from 'clsx';
-import { Star, Sparkles } from 'lucide-react';
+import type { CardItem } from '../../../types';
+import { ScallopedMedallion, StorybookStar } from '../../../components/PlayroomDecor';
 
 interface CardProps {
   card: CardItem;
   onClick: () => void;
-  isFocused: boolean;
   isShaking: boolean;
-  themeColor: string;
+  tileBg: string;
 }
 
-export const Card = memo<CardProps>(function Card({ card, onClick, isFocused, isShaking, themeColor }) {
+export const Card = memo<CardProps>(function Card({ card, onClick, isShaking, tileBg }) {
   const isRevealed = card.isFlipped || card.isMatched;
+  const isPhoto = card.image.endsWith('.jpg');
 
   return (
-    <div 
-      className={clsx(
-        'relative w-full aspect-square cursor-pointer perspective-1000 transition-all duration-300 rounded-xl sm:rounded-2xl',
-        // Focused state
-        isFocused && 'ring-4 sm:ring-[6px] ring-yellow-400 ring-offset-2 sm:ring-offset-4 ring-offset-transparent scale-105 sm:scale-110 z-20 shadow-[0_0_25px_rgba(255,215,0,0.5)]',
-        // Idle state
-        !isFocused && !card.isMatched && 'hover:scale-105 hover:shadow-xl',
-        // Matched state (when not focused)
-        card.isMatched && !isFocused && 'shadow-[0_0_20px_rgba(34,197,94,0.4)] ring-2 sm:ring-4 ring-green-400/80 scale-[0.95]',
-      )}
+    <button
+      type="button"
+      data-kb-item
       onClick={onClick}
-      role="button"
-      tabIndex={0}
-      aria-label={card.isMatched ? 'Par encontrado' : card.isFlipped ? 'Carta volteada' : 'Carta boca abajo'}
+      aria-label={
+        card.isMatched
+          ? `Par encontrado: ${card.label}`
+          : card.isFlipped
+            ? `Carta volteada: ${card.label}`
+            : 'Carta boca abajo'
+      }
+      className={clsx(
+        'toy-press group relative w-full aspect-square cursor-pointer perspective-1000 rounded-[1.25rem] sm:rounded-[1.65rem]',
+        isShaking && 'animate-shake'
+      )}
     >
-      <div 
+      <div
         className={clsx(
-          'w-full h-full transform-style-3d rounded-xl sm:rounded-2xl relative',
-          isRevealed ? 'rotate-y-180' : '',
-          !isShaking && 'duration-500',
-          isShaking && 'animate-shake',
+          'w-full h-full transform-style-3d rounded-[1.25rem] sm:rounded-[1.65rem] relative transition-transform duration-500',
+          isRevealed && 'rotate-y-180'
         )}
       >
         {/* === BACK FACE (face-down) === */}
-        <div 
+        <div
           className={clsx(
-            'absolute w-full h-full backface-hidden rounded-xl sm:rounded-2xl flex items-center justify-center',
-            'border-2 sm:border-4 border-white/60 bg-gradient-to-br shadow-lg overflow-hidden',
-            themeColor
+            'absolute inset-0 backface-hidden rounded-[1.25rem] sm:rounded-[1.65rem] flex items-center justify-center p-1.5 sm:p-2',
+            'border-3 sm:border-4 border-white shadow-[0_5px_0_rgba(61,38,69,0.2)] overflow-hidden',
+            tileBg
           )}
         >
-          <div className="w-1/2 h-1/2 sm:w-3/5 sm:h-3/5 rounded-full overflow-hidden border-2 sm:border-4 border-white/80 shadow-lg">
-            <img 
-              src="/images/lina.jpg" 
-              alt="Lina" 
-              className="w-full h-full object-cover"
-              draggable={false}
-            />
+          <div
+            aria-hidden="true"
+            className="absolute inset-0 opacity-25 pointer-events-none"
+            style={{
+              backgroundImage: 'radial-gradient(circle, #FFFFFF 2px, transparent 2.5px)',
+              backgroundSize: '16px 16px',
+            }}
+          />
+          <div className="w-full h-full rounded-[0.95rem] sm:rounded-[1.2rem] border-2 border-dashed border-white/60 flex items-center justify-center p-1">
+            <ScallopedMedallion src="/images/lina.jpg" alt="" size="card" />
           </div>
         </div>
 
         {/* === FRONT FACE (revealed) === */}
-        <div 
+        <div
           className={clsx(
-            'absolute w-full h-full backface-hidden rounded-xl sm:rounded-2xl rotate-y-180 overflow-hidden',
-            'flex items-center justify-center p-1.5 sm:p-3',
-            card.isMatched 
-              ? 'bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50 border-2 sm:border-4 border-green-400' 
-              : 'bg-white border-2 sm:border-4 border-gray-200 shadow-inner'
+            'absolute inset-0 backface-hidden rounded-[1.25rem] sm:rounded-[1.65rem] rotate-y-180 overflow-hidden',
+            'flex items-center justify-center p-1.5 sm:p-2',
+            card.isMatched
+              ? 'bg-[#EFFAF3] border-3 sm:border-4 border-[#6BCB9F] shadow-[0_5px_0_#3EA376]'
+              : 'bg-white border-3 sm:border-4 border-[#E8D4B8] shadow-[0_5px_0_#D8BE9C]'
           )}
         >
-          <img 
-            src={card.image} 
-            alt="Ficha de memotest" 
+          <img
+            src={card.image}
+            alt=""
+            decoding="async"
             className={clsx(
-              'w-full h-full object-contain rounded-lg transition-transform duration-300',
-              card.isMatched && 'scale-105'
+              'w-full h-full rounded-xl',
+              isPhoto ? 'object-cover' : 'object-contain',
+              card.isMatched && 'animate-spring-pop'
             )}
             draggable={false}
           />
           {card.isMatched && (
-            <>
-              <Star className="absolute top-1 right-1 w-4 h-4 sm:w-6 sm:h-6 text-yellow-400 fill-yellow-400 animate-bounce" style={{ animationDelay: '0ms' }} />
-              <Sparkles className="absolute top-1 left-1 w-4 h-4 sm:w-6 sm:h-6 text-yellow-300 animate-bounce" style={{ animationDelay: '200ms' }} />
-              <Star className="absolute bottom-1 right-1 w-3 h-3 sm:w-5 sm:h-5 text-yellow-400 fill-yellow-400 animate-bounce" style={{ animationDelay: '400ms' }} />
-            </>
+            <div className="absolute top-1.5 right-1.5 animate-spring-pop" aria-hidden="true">
+              <StorybookStar filled className="w-6 h-6 sm:w-8 sm:h-8" />
+            </div>
           )}
         </div>
       </div>
-    </div>
+    </button>
   );
 });

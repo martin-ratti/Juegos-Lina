@@ -1,40 +1,47 @@
+import React from 'react';
+import { ArrowLeft } from 'lucide-react';
 import { ThemeSelector } from '../components/ThemeSelector';
-import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, Sparkles, Brain } from 'lucide-react';
+import { MagicalBackground } from '../../../components/MagicalBackground';
+import { PlayroomBunting } from '../../../components/PlayroomDecor';
+import { useDocumentTitle } from '../../../hooks/useDocumentTitle';
+import { useViewTransitionNavigate } from '../../../hooks/useViewTransitionNavigate';
 
 export const MemoHome: React.FC = () => {
-  const navigate = useNavigate();
+  const navigate = useViewTransitionNavigate();
+  useDocumentTitle('Memotest · Juegos de Lina');
 
   return (
-    <div className="min-h-dvh flex flex-col items-center pt-6 sm:pt-10 md:pt-14 px-3 sm:px-4">
-      {/* Back button */}
-      <div className="w-full max-w-4xl mb-2 sm:mb-4 animate-fade-in">
-        <button 
+    <div className="min-h-dvh flex flex-col pb-[max(1rem,env(safe-area-inset-bottom,0px))] relative">
+      <MagicalBackground variant="fairy" />
+      <PlayroomBunting />
+
+      <div className="w-full max-w-5xl mx-auto px-3 sm:px-6 flex items-center justify-between mt-1 mb-2">
+        <button
+          type="button"
           onClick={() => navigate('/')}
-          className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 bg-white/70 hover:bg-white text-purple-600 rounded-full font-extrabold shadow-md hover:shadow-lg transition-all hover:scale-105 active:scale-95 border-2 border-purple-200"
+          aria-label="Volver al menú principal"
+          className="toy-press flex items-center gap-2 px-4 py-2 bg-[#FFFDF9] text-[#3D2645] rounded-full font-bold border-3 border-[#E8D4B8] shadow-[0_4px_0_#D8BE9C] cursor-pointer"
         >
-          <ArrowLeft className="w-4 h-4 sm:w-5 sm:h-5" />
-          <span className="text-sm">Volver</span>
+          <ArrowLeft className="w-5 h-5" aria-hidden="true" />
+          <span>Atrás</span>
         </button>
       </div>
 
-      {/* Title */}
-      <div className="text-center mb-2 sm:mb-4 relative animate-slide-up">
-        <Sparkles className="absolute -top-3 -left-4 sm:-top-4 sm:-left-6 w-6 h-6 sm:w-8 sm:h-8 text-yellow-400 animate-pulse" />
-        <Sparkles className="absolute -top-1 -right-4 sm:-top-2 sm:-right-6 w-5 h-5 sm:w-7 sm:h-7 text-pink-400 animate-pulse" style={{ animationDelay: '500ms' }} />
-
-        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-indigo-500 p-2 leading-tight flex justify-center items-center gap-2">
-          <Brain className="w-8 h-8 sm:w-10 sm:h-10 text-purple-500" /> Memotest
+      <header className="text-center px-3 sm:px-6 mb-3 sm:mb-5">
+        <h1
+          tabIndex={-1}
+          className="sticker-title text-[clamp(2rem,1.4rem+3vw,3.75rem)] text-[#F25C78] outline-none"
+        >
+          Memotest
         </h1>
-        <p className="mt-1 sm:mt-2 text-base sm:text-lg md:text-xl text-purple-700 font-bold bg-white/80 inline-block px-4 sm:px-6 py-1.5 rounded-full shadow-sm border border-white/60">
-          ¡Elegí un tema!
+        <p className="mt-1.5 inline-block bg-[#FFFDF9] border-2 border-[#E8D4B8] px-5 py-1 rounded-full text-[clamp(0.95rem,0.85rem+0.5vw,1.25rem)] text-[#3D2645] shadow-xs">
+          Elegí tus dibujos favoritos
         </p>
-      </div>
+      </header>
 
-      {/* Theme selector */}
-      <ThemeSelector />
-      
-      <div className="sm:hidden h-6" />
+      <main className="w-full flex-1 flex items-center justify-center px-3 sm:px-6 py-2 sm:py-4">
+        <ThemeSelector />
+      </main>
     </div>
   );
 };

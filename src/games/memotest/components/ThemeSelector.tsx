@@ -1,79 +1,100 @@
-import { THEMES } from '../../../data/themes';
-import { useNavigate } from 'react-router-dom';
+import React, { useRef } from 'react';
 import { clsx } from 'clsx';
+import { Play } from 'lucide-react';
+import { THEMES } from '../../../data/themes';
 import { useKeyboard } from '../../../hooks/useKeyboard';
-import { Lock, Mouse, Crown, Heart, Users } from 'lucide-react';
-
-const THEME_ICONS: Record<string, React.ReactNode> = {
-  mickey: <Mouse className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 text-white/80" />,
-  barbie: <Heart className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 text-white/80" />,
-  princesas: <Crown className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 text-white/80" />,
-  familia: <Users className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 text-white/80" />,
-};
-
-
+import { useViewTransitionNavigate } from '../../../hooks/useViewTransitionNavigate';
+import { WashiTape } from '../../../components/PlayroomDecor';
 
 export const ThemeSelector: React.FC = () => {
-  const navigate = useNavigate();
+  const navigate = useViewTransitionNavigate();
+  const containerRef = useRef<HTMLDivElement>(null);
 
-  const handleSelect = (index: number) => {
-    const theme = THEMES[index];
-    if (theme && !theme.comingSoon) {
-      navigate(`/memotest/jugar/${theme.id}`);
-    }
-  };
-
-  const { focusedIndex, setFocusedIndex } = useKeyboard({
-    gridColumns: 2,
-    totalItems: THEMES.length,
-    onEnter: handleSelect,
-    isActive: true
+  useKeyboard({
+    containerRef,
+    onEscape: () => navigate('/'),
+    isActive: true,
   });
 
   return (
-    <div className="w-full max-w-5xl mx-auto px-3 sm:px-5 py-5 sm:py-8">
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8">
-        {THEMES.map((theme, index) => {
-          const isFocused = focusedIndex === index;
-          
+    <div ref={containerRef} className="w-full max-w-5xl mx-auto">
+      <div className="grid grid-cols-2 gap-3.5 sm:gap-6">
+        {THEMES.map((theme) => {
+          const previewCards = theme.cards.slice(0, 3);
+
           return (
             <button
               type="button"
               key={theme.id}
-              onMouseEnter={() => setFocusedIndex(index)}
-              onClick={() => handleSelect(index)}
-              aria-label={theme.comingSoon ? `${theme.name} - Próximamente` : `Jugar con tema ${theme.name}`}
-              disabled={theme.comingSoon}
+              data-kb-item
+              onClick={() => navigate(`/memotest/jugar/${theme.id}`)}
+              aria-label={`Jugar Memotest con tema ${theme.name}`}
               className={clsx(
-                'relative overflow-hidden rounded-2xl sm:rounded-3xl shadow-xl transition-all duration-300 transform animate-pop-in',
-                isFocused && !theme.comingSoon && 'scale-105 ring-4 sm:ring-[6px] ring-yellow-400 ring-offset-2 sm:ring-offset-4 ring-offset-transparent z-10 shadow-[0_0_30px_rgba(255,215,0,0.4)]',
-                !isFocused && 'hover:scale-[1.03]',
-                theme.comingSoon ? 'cursor-not-allowed grayscale-[30%] opacity-70' : 'cursor-pointer',
+                'toy-press group relative rounded-[1.75rem] sm:rounded-[2.25rem] border-4 border-white p-3.5 sm:p-6 flex flex-col sm:flex-row items-center sm:text-left text-center gap-2.5 sm:gap-6 cursor-pointer',
+                theme.cardBg,
+                theme.lipColor
               )}
-              style={{ animationDelay: `${index * 100}ms`, animationFillMode: 'backwards' }}
             >
-              <div className={clsx('absolute inset-0 bg-gradient-to-br', theme.color)} />
-              
-              {/* Decorative circles */}
-              <div className="absolute -top-6 -right-6 w-20 sm:w-24 h-20 sm:h-24 bg-white/10 rounded-full" />
-              <div className="absolute -bottom-4 -left-4 w-16 sm:w-20 h-16 sm:h-20 bg-white/10 rounded-full" />
-              
-              <div className="relative p-3 sm:p-5 md:p-6 h-36 sm:h-48 md:h-56 flex flex-col items-center justify-center text-center gap-1.5 sm:gap-3 group-hover:scale-[1.02] transition-transform duration-300">
-                <div className="p-2 sm:p-3 bg-white/20 rounded-full shadow-inner backdrop-blur-sm">
-                  {THEME_ICONS[theme.id]}
-                </div>
-                <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-white drop-shadow-md">
+              <WashiTape
+                color={
+                  theme.id === 'mickey'
+                    ? 'bg-[#F25C78]/75'
+                    : theme.id === 'barbie'
+                      ? 'bg-[#FFBE3D]/85'
+                      : theme.id === 'princesas'
+                        ? 'bg-[#5BC0EB]/80'
+                        : 'bg-[#6BCB9F]/80'
+                }
+                className="absolute -top-2.5 left-1/2 -translate-x-1/2 -rotate-2"
+              />
+
+              {/* Abanico de 3 fotos */}
+              <div
+                className="relative w-28 h-22 sm:w-44 sm:h-32 shrink-0 flex items-center justify-center mt-1 sm:mt-0"
+                aria-hidden="true"
+              >
+                {previewCards.map((card, i) => {
+                  const pos = [
+                    '-rotate-12 -translate-x-6 sm:-translate-x-10 translate-y-1.5 z-10',
+                    'rotate-0 -translate-y-1 scale-108 z-20',
+                    'rotate-12 translate-x-6 sm:translate-x-10 translate-y-1.5 z-10',
+                  ];
+                  const isPhoto = card.image.endsWith('.jpg');
+                  return (
+                    <div
+                      key={card.image}
+                      className={clsx(
+                        'absolute w-12 h-15 sm:w-20 sm:h-24 rounded-xl sm:rounded-2xl bg-white p-1 border-2 sm:border-3 border-[#3D2645] shadow-[0_3px_0_rgba(61,38,69,0.18)] transition-transform duration-300 group-hover:scale-105',
+                        pos[i]
+                      )}
+                    >
+                      <img
+                        src={card.image}
+                        alt=""
+                        loading="lazy"
+                        decoding="async"
+                        className={clsx(
+                          'w-full h-full rounded-md sm:rounded-lg',
+                          isPhoto ? 'object-cover' : 'object-contain'
+                        )}
+                        draggable={false}
+                      />
+                    </div>
+                  );
+                })}
+              </div>
+
+              <div className="flex-1 min-w-0 flex flex-col items-center sm:items-start gap-1.5 sm:gap-2">
+                <h2 className="text-[clamp(1.2rem,1rem+1vw,1.95rem)] text-[#3D2645] leading-tight">
                   {theme.name}
                 </h2>
-                <p className="text-white/90 text-xs sm:text-sm md:text-base font-semibold bg-black/10 px-3 py-1 rounded-full backdrop-blur-sm">
-                  {theme.comingSoon ? 'Próximamente...' : theme.description}
+                <p className="text-[#3D2645]/80 text-xs sm:text-base font-bold leading-snug">
+                  {theme.description}
                 </p>
-                
-                {theme.comingSoon && (
-                  <div className="absolute top-3 right-3 bg-black/40 p-2 rounded-full backdrop-blur-md shadow-lg">
-                    <Lock className="w-4 h-4 text-white" />
-                  </div>
-                )}
+                <span className="mt-0.5 inline-flex items-center gap-1.5 bg-[#3D2645] text-[#FFFDF9] font-bold text-xs sm:text-base px-4 sm:px-6 py-1.5 rounded-full">
+                  <Play className="w-3.5 h-3.5 sm:w-4 sm:h-4 fill-current" aria-hidden="true" />
+                  <span>Jugar</span>
+                </span>
               </div>
             </button>
           );

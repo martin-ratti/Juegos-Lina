@@ -1,8 +1,8 @@
+import React, { useRef } from 'react';
 import { Card } from './Card';
 import type { CardItem, Theme } from '../../../types';
 import { useKeyboard } from '../../../hooks/useKeyboard';
-import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useViewTransitionNavigate } from '../../../hooks/useViewTransitionNavigate';
 
 interface GameBoardProps {
   cards: CardItem[];
@@ -12,56 +12,40 @@ interface GameBoardProps {
   shakingCards: number[];
 }
 
-export const GameBoard: React.FC<GameBoardProps> = ({ cards, theme, onCardClick, isWon, shakingCards }) => {
-  const navigate = useNavigate();
-  
-  const [cols, setCols] = useState(3);
-  
-  useEffect(() => {
-    const updateCols = () => {
-      if (window.innerWidth >= 1024) setCols(6); // lg
-      else if (window.innerWidth >= 640) setCols(4); // sm
-      else setCols(3); // base
-    };
-    updateCols();
-    window.addEventListener('resize', updateCols);
-    return () => window.removeEventListener('resize', updateCols);
-  }, []);
+export const GameBoard: React.FC<GameBoardProps> = ({
+  cards,
+  theme,
+  onCardClick,
+  isWon,
+  shakingCards,
+}) => {
+  const navigate = useViewTransitionNavigate();
+  const boardRef = useRef<HTMLDivElement>(null);
 
-  const { focusedIndex, setFocusedIndex } = useKeyboard({
-    gridColumns: cols,
-    totalItems: cards.length,
-    onEnter: (index) => {
-      onCardClick(index);
-    },
-    onEscape: () => {
-      navigate('/');
-    },
-    isActive: !isWon && cards.length > 0
+  useKeyboard({
+    containerRef: boardRef,
+    onEscape: () => navigate('/memotest'),
+    isActive: !isWon && cards.length > 0,
   });
 
   if (cards.length === 0) return null;
 
   return (
-    <div className="w-full max-w-[min(100%,36rem)] sm:max-w-3xl md:max-w-5xl lg:max-w-[95vw] xl:max-w-[95vw] 2xl:max-w-[1800px] mx-auto p-3 sm:p-6 md:p-8 bg-white/90 rounded-2xl sm:rounded-[2rem] shadow-2xl border-2 border-white/50 animate-fade-in">
-      {/* Extra padding so scale on focused cards doesn't get clipped */}
-      <div className="p-1 sm:p-2 md:p-3">
-        <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-6 gap-2 sm:gap-3 md:gap-4 lg:gap-5">
+    <div
+      ref={boardRef}
+      data-pairs={theme.cards.length}
+      className="memotest-board-wrap mx-auto p-2 sm:p-3.5 bg-[#FFFDF9] rounded-[1.75rem] sm:rounded-[2.25rem] border-3 sm:border-4 border-white shadow-[0_8px_0_#E5CEB0,0_16px_28px_rgba(61,38,69,0.12)]"
+    >
+      <div className="border-2 border-dashed border-[#EEDBC3] rounded-[1.35rem] sm:rounded-[1.75rem] p-2 sm:p-3">
+        <div className="memotest-grid gap-2 sm:gap-3.5">
           {cards.map((card, index) => (
-            <div 
-              key={card.id} 
-              className="animate-pop-in"
-              style={{ animationDelay: `${index * 50}ms`, animationFillMode: 'backwards' }}
-              onMouseEnter={() => setFocusedIndex(index)}
-            >
-              <Card
-                card={card}
-                onClick={() => onCardClick(index)}
-                isFocused={focusedIndex === index}
-                isShaking={shakingCards.includes(index)}
-                themeColor={theme.color}
-              />
-            </div>
+            <Card
+              key={card.id}
+              card={card}
+              onClick={() => onCardClick(index)}
+              isShaking={shakingCards.includes(index)}
+              tileBg={theme.tileBg}
+            />
           ))}
         </div>
       </div>
