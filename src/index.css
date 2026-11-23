@@ -1,37 +1,43 @@
 @import "tailwindcss";
 
+:root {
+  --cream-paper: #FFF8EE;
+  --petal-blush: #FFE6EC;
+  --strawberry: #F25C78;
+  --marigold: #FFBE3D;
+  --robin-sky: #5BC0EB;
+  --mint-leaf: #6BCB9F;
+  --plum-ink: #3D2645;
+  --scrollbar-thumb: #C93B58;
+  --scrollbar-track: #FDF2F8;
+  --in-oklab: ;
+  --target-size: 24px;
+  --spring-easing: linear(0, 0.45 14%, 1.12 34%, 0.96 54%, 1.02 74%, 1);
+}
+
+@media (pointer: coarse) {
+  :root {
+    --target-size: 44px;
+  }
+}
+
+@supports (background: linear-gradient(in oklab, white, black)) {
+  :root {
+    --in-oklab: in oklab;
+  }
+}
+
 @theme {
-  --animate-float: float 3s ease-in-out infinite;
-  --animate-pulse-glow: pulse-glow 2s infinite;
-  --animate-bounce-slight: bounce-slight 0.5s ease-in-out;
-  --animate-shake: shake 0.5s ease-in-out;
-  --animate-fade-in: fade-in 0.4s ease-out;
-  --animate-slide-up: slide-up 0.5s ease-out;
-  --animate-pop-in: pop-in 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  --animate-wiggle: wiggle 1s ease-in-out infinite;
-
-  @keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
-  }
-  
-  @keyframes pulse-glow {
-    0% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.7); }
-    70% { box-shadow: 0 0 0 15px rgba(255, 215, 0, 0); }
-    100% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0); }
-  }
-
-  @keyframes bounce-slight {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.05); }
-  }
+  --animate-fade-in: fade-in 0.25s ease-out both;
+  --animate-pop-in: pop-in 0.3s ease-out both;
+  --animate-shake: shake 0.45s ease-in-out;
 
   @keyframes shake {
-    0%, 100% { transform: translateX(0) rotateY(180deg); }
-    20% { transform: translateX(-8px) rotateY(180deg); }
-    40% { transform: translateX(8px) rotateY(180deg); }
-    60% { transform: translateX(-6px) rotateY(180deg); }
-    80% { transform: translateX(6px) rotateY(180deg); }
+    0%, 100% { translate: 0 0; }
+    20% { translate: -8px 0; }
+    40% { translate: 8px 0; }
+    60% { translate: -5px 0; }
+    80% { translate: 5px 0; }
   }
 
   @keyframes fade-in {
@@ -39,31 +45,50 @@
     to { opacity: 1; }
   }
 
-  @keyframes slide-up {
-    from { opacity: 0; transform: translateY(30px); }
-    to { opacity: 1; transform: translateY(0); }
+  @keyframes pop-in {
+    from {
+      scale: 0.95;
+    }
+    to {
+      scale: 1;
+    }
   }
 
-  @keyframes pop-in {
-    from { opacity: 0; transform: scale(0.8); }
-    to { opacity: 1; transform: scale(1); }
+  @keyframes spring-pop {
+    0% { scale: 0.82; }
+    100% { scale: 1; }
+  }
+
+  @keyframes float {
+    0%, 100% { translate: 0 0; }
+    50% { translate: 0 -8px; }
   }
 
   @keyframes wiggle {
-    0%, 100% { transform: rotate(-3deg); }
-    50% { transform: rotate(3deg); }
+    0%, 100% { rotate: -4deg; }
+    50% { rotate: 4deg; }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  @keyframes pop-in {
+    from { scale: 1; }
+    to { scale: 1; }
   }
 }
 
 @utility perspective-1000 {
   perspective: 1000px;
 }
+
 @utility transform-style-3d {
   transform-style: preserve-3d;
 }
+
 @utility backface-hidden {
   backface-visibility: hidden;
 }
+
 @utility rotate-y-180 {
   transform: rotateY(180deg);
 }
@@ -73,30 +98,292 @@
     -webkit-tap-highlight-color: transparent;
   }
 
+  html {
+    scrollbar-width: thin;
+    scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+  }
+
   body {
-    background: linear-gradient(135deg, #fce4ec 0%, #f3e5f5 25%, #e8eaf6 50%, #e1f5fe 75%, #e0f7fa 100%);
-    background-attachment: fixed;
+    background-color: #FDF2F8;
     min-height: 100dvh;
-    font-family: 'Nunito', sans-serif;
-    color: #4a148c;
-    overflow-x: hidden;
+    font-family: 'Quicksand', system-ui, sans-serif;
+    font-weight: 700;
+    line-height: 1.5;
+    color: var(--plum-ink);
+    overflow-wrap: break-word;
     margin: 0;
     user-select: none;
   }
 
-  h1, h2, h3, h4, h5, h6 {
-    font-family: 'Fredoka One', cursive;
+  img,
+  video {
+    max-inline-size: 100%;
+    block-size: auto;
   }
 
-  /* Smooth scrollbar */
+  svg {
+    max-inline-size: 100%;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: 'Baloo 2', cursive, sans-serif;
+    font-weight: 800;
+    text-wrap: balance;
+    line-height: 1.1;
+  }
+
+  :where(button, [role="button"], a) {
+    min-block-size: var(--target-size);
+    min-inline-size: var(--target-size);
+  }
+
+  :where(a, button, input, select, textarea, summary, [tabindex]:not([tabindex="-1"])):focus-visible {
+    outline: 3px solid #3D2645;
+    outline-offset: 4px;
+    box-shadow: 0 0 0 7px rgb(255 190 61 / 0.7);
+  }
+}
+
+/* Fallback legacy para navegadores sin scrollbar-color estándar */
+@supports not (scrollbar-color: auto) {
+  html {
+    scrollbar-width: auto;
+  }
+
   ::-webkit-scrollbar {
-    width: 8px;
+    width: 10px;
+    height: 10px;
   }
-  ::-webkit-scrollbar-track {
-    background: transparent;
-  }
+
   ::-webkit-scrollbar-thumb {
-    background: rgba(156, 39, 176, 0.3);
-    border-radius: 4px;
+    background: var(--scrollbar-thumb);
+    border-radius: 9999px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--scrollbar-track);
+  }
+}
+
+/* Tablero proporcional para Memotest: cartas cuadradas grandes sin deformarse */
+.memotest-board-wrap {
+  width: min(96vw, calc((100dvh - 6.25rem) * 0.74));
+}
+
+.memotest-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+@media (min-width: 640px) and (orientation: landscape) {
+  .memotest-board-wrap {
+    width: min(94vw, calc((100dvh - 6.75rem) * 1.34));
+  }
+
+  .memotest-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+/* Temas con 8 parejas (16 cartas): tablero cuadrado 4×4 en cualquier orientación */
+.memotest-board-wrap[data-pairs="8"] {
+  width: min(96vw, calc(100dvh - 6.25rem));
+
+  .memotest-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  @media (min-width: 640px) and (orientation: landscape) {
+    width: min(94vw, calc(100dvh - 6.75rem));
+  }
+}
+
+/* Título troquelado estilo sticker con borde blanco grueso */
+.sticker-title {
+  paint-order: stroke fill;
+  -webkit-text-stroke: 5px #ffffff;
+  filter: drop-shadow(0 4px 0 rgb(61 38 69 / 0.14));
+}
+
+@media (min-width: 640px) {
+  .sticker-title {
+    -webkit-text-stroke: 6px #ffffff;
+  }
+}
+
+/* Botones y tarjetas táctiles con resorte físico en scale */
+.toy-press {
+  scale: 1;
+  translate: 0 0;
+  touch-action: manipulation;
+  transition: scale 0.28s ease-out, translate 0.18s ease-out, box-shadow 0.18s ease-out;
+  transition-timing-function: var(--spring-easing), ease-out, ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .toy-press {
+    transition: none;
+  }
+}
+
+@media (hover: hover) {
+  .toy-press:hover:not(:disabled) {
+    translate: 0 -2px;
+    scale: 1.025;
+  }
+}
+
+.toy-press:active:not(:disabled) {
+  translate: 0 4px;
+  scale: 0.98;
+}
+
+/* Piezas SVG dentro de un mismo lienzo unificado */
+.svg-piece-group {
+  transform-box: fill-box;
+  transform-origin: center;
+  scale: 1;
+  translate: 0 0;
+}
+
+.svg-piece-slot {
+  transition: scale 0.24s ease-out;
+  transition-timing-function: var(--spring-easing);
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
+}
+
+@media (hover: hover) {
+  .svg-piece-slot:hover {
+    scale: 1.04;
+  }
+}
+
+.svg-piece-slot:focus-visible {
+  outline: 3px solid #3D2645;
+  outline-offset: 4px;
+  filter: drop-shadow(0 0 8px #FFBE3D);
+}
+
+.animate-spring-pop {
+  @media (prefers-reduced-motion: no-preference) {
+    animation: spring-pop 0.45s var(--spring-easing) both;
+  }
+}
+
+/* Fondo mágico de cielo pastel y animaciones suaves respetando movimiento reducido */
+.bg-magic-fairy {
+  background: linear-gradient(135deg var(--in-oklab), #FFE4EF 0%, #F3E8FF 48%, #DFF4FF 100%);
+}
+
+.bg-magic-meadow {
+  background: linear-gradient(155deg var(--in-oklab), #DFF4FF 0%, #ECFEFF 48%, #DCFCE7 100%);
+}
+
+.animate-float {
+  @media (prefers-reduced-motion: no-preference) {
+    animation: float 4.2s ease-in-out infinite;
+  }
+}
+
+.animate-wiggle {
+  @media (prefers-reduced-motion: no-preference) {
+    animation: wiggle 2.6s ease-in-out infinite;
+  }
+}
+
+/* View Transitions respetando preferencia de movimiento reducido */
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+}
+
+/* Contención de scroll obligatoria para modales nativos */
+dialog:modal {
+  overscroll-behavior: contain;
+}
+
+dialog::backdrop {
+  overflow: hidden;
+  overscroll-behavior: contain;
+}
+
+/* Transición de entrada/salida al top-layer para WinScreen */
+.win-dialog {
+  inset: 0;
+  width: 100dvw;
+  height: 100dvh;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  padding: 1rem;
+  background: transparent;
+  border: 0;
+  outline: none;
+  opacity: 0;
+  transition-property: opacity, display, overlay;
+  transition-duration: 0.3s;
+  transition-timing-function: ease-out;
+  transition-behavior: allow-discrete;
+}
+
+.win-dialog[open] {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 1;
+
+  @starting-style {
+    opacity: 0;
+  }
+}
+
+.win-dialog-card {
+  scale: 1;
+  transition: scale 0.32s var(--spring-easing);
+}
+
+.win-dialog[open] .win-dialog-card {
+  @media (prefers-reduced-motion: no-preference) {
+    @starting-style {
+      scale: 0.9;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .win-dialog-card {
+    transition: none;
+  }
+}
+
+.win-dialog::backdrop {
+  background-color: rgb(61 38 69 / 0);
+  backdrop-filter: blur(0px);
+  transition-property: background-color, backdrop-filter, display, overlay;
+  transition-duration: 0.3s;
+  transition-timing-function: ease-out;
+  transition-behavior: allow-discrete;
+}
+
+.win-dialog[open]::backdrop {
+  background-color: rgb(61 38 69 / 0.58);
+  backdrop-filter: blur(5px);
+
+  @starting-style {
+    background-color: rgb(61 38 69 / 0);
+    backdrop-filter: blur(0px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .win-dialog,
+  .win-dialog::backdrop {
+    transition-duration: 0.1s;
   }
 }

@@ -1,116 +1,162 @@
-import { useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import confetti from 'canvas-confetti';
-import { useNavigate } from 'react-router-dom';
-import { Star, RefreshCw, Home, PartyPopper, Sparkles } from 'lucide-react';
+import { ArrowRight, Home, RefreshCw } from 'lucide-react';
+import { PlayroomBunting, ScallopedMedallion, StorybookStar } from './PlayroomDecor';
 
 interface WinScreenProps {
   onRestart: () => void;
+  onMenu: () => void;
+  menuLabel?: string;
+  onNext?: () => void;
+  nextLabel?: string;
   title?: string;
   message?: string;
 }
 
-export const WinScreen: React.FC<WinScreenProps> = ({ onRestart, title, message }) => {
-  const navigate = useNavigate();
-  const confettiTimerRef = useRef<number | null>(null);
+export const WinScreen: React.FC<WinScreenProps> = ({
+  onRestart,
+  onMenu,
+  menuLabel = 'Elegir otro',
+  onNext,
+  nextLabel,
+  title = '¡Muy bien, Lina!',
+  message = '¡Encontraste todas las parejas!',
+}) => {
+  const dialogRef = useRef<HTMLDialogElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
-    const duration = 4000;
+    const dialog = dialogRef.current;
+    if (dialog && !dialog.open) {
+      dialog.showModal();
+    }
+
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const fireConfetti = confetti.create(canvas, {
+      resize: true,
+      disableForReducedMotion: true,
+    });
+
+    const colors = ['#F25C78', '#FFBE3D', '#5BC0EB', '#6BCB9F', '#C8A2F6'];
+
+    fireConfetti({
+      particleCount: 65,
+      spread: 90,
+      startVelocity: 45,
+      origin: { x: 0.5, y: 0.55 },
+      colors,
+    });
+
+    const duration = 3000;
     const end = Date.now() + duration;
+    let frameId = 0;
 
     const frame = () => {
-      confetti({
+      fireConfetti({
         particleCount: 4,
         angle: 60,
-        spread: 55,
-        origin: { x: 0, y: 0.6 },
-        colors: ['#ff6f00', '#e91e63', '#00bcd4', '#FFD700', '#76FF03']
+        spread: 62,
+        startVelocity: 55,
+        origin: { x: 0.05, y: 0.68 },
+        colors,
       });
-      confetti({
+      fireConfetti({
         particleCount: 4,
         angle: 120,
-        spread: 55,
-        origin: { x: 1, y: 0.6 },
-        colors: ['#ff6f00', '#e91e63', '#00bcd4', '#FFD700', '#76FF03']
+        spread: 62,
+        startVelocity: 55,
+        origin: { x: 0.95, y: 0.68 },
+        colors,
       });
 
       if (Date.now() < end) {
-        confettiTimerRef.current = requestAnimationFrame(frame);
+        frameId = requestAnimationFrame(frame);
       }
     };
-    
+
     frame();
 
     return () => {
-      if (confettiTimerRef.current) {
-        cancelAnimationFrame(confettiTimerRef.current);
-      }
+      cancelAnimationFrame(frameId);
+      fireConfetti.reset();
     };
   }, []);
 
-  useEffect(() => {
-    const handleKey = (e: KeyboardEvent) => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        onRestart();
-      } else if (e.key === 'Escape') {
-        navigate('/');
-      }
-    };
-    window.addEventListener('keydown', handleKey);
-    return () => window.removeEventListener('keydown', handleKey);
-  }, [onRestart, navigate]);
-
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/80 animate-fade-in">
-      <div className="bg-white rounded-[2rem] sm:rounded-[2.5rem] p-5 sm:p-8 md:p-10 max-w-lg w-full text-center shadow-2xl border-4 sm:border-8 border-yellow-400 animate-pop-in">
-        
-        {/* Stars row */}
-        <div className="flex justify-center gap-2 sm:gap-3 mb-3 sm:mb-5">
-          <Star className="w-8 h-8 sm:w-10 sm:h-10 text-yellow-400 fill-yellow-400 animate-bounce" style={{ animationDelay: '0ms' }} />
-          <Star className="w-10 h-10 sm:w-14 sm:h-14 text-yellow-400 fill-yellow-400 animate-bounce" style={{ animationDelay: '150ms' }} />
-          <Star className="w-8 h-8 sm:w-10 sm:h-10 text-yellow-400 fill-yellow-400 animate-bounce" style={{ animationDelay: '300ms' }} />
-        </div>
+    <dialog
+      ref={dialogRef}
+      aria-labelledby="win-dialog-title"
+      onCancel={(e) => {
+        e.preventDefault();
+        onMenu();
+      }}
+      className="win-dialog overflow-hidden"
+    >
+      <canvas
+        ref={canvasRef}
+        aria-hidden="true"
+        className="pointer-events-none fixed inset-0 w-full h-full z-20"
+      />
 
-        {/* Celebration icons */}
-        <div className="flex justify-center gap-2 mb-2 sm:mb-3 animate-wiggle text-pink-500">
-          <PartyPopper className="w-8 h-8 sm:w-10 sm:h-10" />
-          <PartyPopper className="w-8 h-8 sm:w-10 sm:h-10 transform scale-x-[-1]" />
-        </div>
+      <div className="win-dialog-card relative z-10 w-full max-w-xl bg-[#FFFDF8] rounded-[2.5rem] overflow-hidden text-center border-4 border-[#FFBE3D] shadow-[0_12px_0_#D99216,0_24px_48px_rgba(61,38,69,0.28)]">
+        <PlayroomBunting variant="card" />
 
-        <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-pink-500 mb-2 sm:mb-3 drop-shadow-md">
-          {title ?? '¡Ganaste Lina!'}
-        </h2>
-        
-        <p className="flex items-center justify-center gap-2 text-base sm:text-lg md:text-xl text-purple-700 mb-5 sm:mb-8 font-bold">
-          {message ?? (
-            <>
-              ¡Encontraste todas las parejas! <Sparkles className="w-5 h-5 text-yellow-400" />
-            </>
-          )}
-        </p>
+        <div className="px-6 sm:px-8 pb-7 sm:pb-9 pt-2">
+          <div className="flex items-center justify-center gap-3 mb-3">
+            <StorybookStar filled className="w-8 h-8 -rotate-12" />
+            <ScallopedMedallion src="/images/lina.jpg" alt="" showCrown size="md" />
+            <StorybookStar filled className="w-8 h-8 rotate-12" />
+          </div>
 
-        <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
-          <button 
-            onClick={onRestart}
-            className="flex items-center justify-center gap-2 sm:gap-3 px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-green-400 to-emerald-500 hover:from-green-500 hover:to-emerald-600 text-white text-lg sm:text-xl md:text-2xl font-bold rounded-full shadow-lg transition-all hover:scale-105 active:scale-95 border-3 sm:border-4 border-green-300/50"
+          <h1
+            id="win-dialog-title"
+            className="sticker-title text-3xl sm:text-5xl text-[#F25C78] mb-2"
           >
-            <RefreshCw className="w-5 h-5 sm:w-7 sm:h-7" />
-            ¡De Nuevo!
-          </button>
-          
-          <button 
-            onClick={() => navigate('/')}
-            className="flex items-center justify-center gap-2 sm:gap-3 px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-purple-400 to-indigo-500 hover:from-purple-500 hover:to-indigo-600 text-white text-lg sm:text-xl md:text-2xl font-bold rounded-full shadow-lg transition-all hover:scale-105 active:scale-95 border-3 sm:border-4 border-purple-300/50"
-          >
-            <Home className="w-5 h-5 sm:w-7 sm:h-7" />
-            Menú
-          </button>
+            {title}
+          </h1>
+
+          <p className="text-base sm:text-lg md:text-xl text-[#3D2645] mb-6 font-bold">
+            {message}
+          </p>
+
+          <div className="flex flex-col gap-3">
+            {onNext && nextLabel && (
+              <button
+                type="button"
+                autoFocus
+                onClick={onNext}
+                className="toy-press flex items-center justify-center gap-2.5 px-7 py-3.5 bg-[#FFBE3D] text-[#3D2645] text-lg sm:text-xl font-bold rounded-full border-3 border-[#3D2645] shadow-[0_6px_0_#D99216] cursor-pointer"
+              >
+                <span>{nextLabel}</span>
+                <ArrowRight className="w-6 h-6" aria-hidden="true" />
+              </button>
+            )}
+
+            <div className="flex flex-col sm:flex-row gap-3 justify-center">
+              <button
+                type="button"
+                autoFocus={!onNext}
+                onClick={onRestart}
+                className="toy-press flex-1 flex items-center justify-center gap-2 px-5 py-3 bg-[#6BCB9F] text-[#3D2645] text-base sm:text-lg font-bold whitespace-nowrap rounded-full border-3 border-[#3D2645] shadow-[0_5px_0_#3EA376] cursor-pointer"
+              >
+                <RefreshCw className="w-5 h-5 shrink-0" aria-hidden="true" />
+                <span>Jugar otra vez</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={onMenu}
+                className="toy-press flex-1 flex items-center justify-center gap-2 px-5 py-3 bg-[#FFF8EE] text-[#3D2645] text-base sm:text-lg font-bold whitespace-nowrap rounded-full border-3 border-[#F25C78] shadow-[0_5px_0_#C93B58] cursor-pointer"
+              >
+                <Home className="w-5 h-5 shrink-0" aria-hidden="true" />
+                <span>{menuLabel}</span>
+              </button>
+            </div>
+          </div>
         </div>
-        
-        <p className="hidden sm:block mt-5 text-xs text-gray-400 font-semibold">
-          Enter → jugar de nuevo · Esc → menú
-        </p>
       </div>
-    </div>
+    </dialog>
   );
 };
