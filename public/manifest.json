@@ -1,18 +1,24 @@
 {
   "name": "Juegos de Lina",
   "short_name": "Juegos Lina",
-  "description": "Juegos educativos y divertidos para Lina: Memotest y Rompecabezas del Cuerpo Humano.",
+  "description": "Juegos educativos y divertidos para Lina: Memotest y Rompecabezas de madera.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#f3e5f5",
-  "theme_color": "#f3e5f5",
+  "background_color": "#FDF2F8",
+  "theme_color": "#FDF2F8",
   "orientation": "portrait",
   "icons": [
     {
       "src": "/favicon.svg",
       "sizes": "any",
       "type": "image/svg+xml",
-      "purpose": "any maskable"
+      "purpose": "any"
+    },
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
     }
   ]
 }
