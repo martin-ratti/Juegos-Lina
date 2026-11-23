@@ -1,102 +1,127 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import { ArrowLeft } from 'lucide-react';
+import React, { useRef, useEffect } from 'react';
+import { Navigate, useParams } from 'react-router-dom';
+import { Header } from '../../components/Header';
+import { MagicalBackground } from '../../components/MagicalBackground';
 import { WinScreen } from '../../components/WinScreen';
 import { useKeyboard } from '../../hooks/useKeyboard';
-import { BOARD_SLOTS } from './data/pieces';
+import { useDocumentTitle } from '../../hooks/useDocumentTitle';
+import { useViewTransitionNavigate } from '../../hooks/useViewTransitionNavigate';
+import { getNextPuzzle, getPuzzleById } from './data/puzzles';
 import { useRompecabezasLogic } from './hooks/useRompecabezasLogic';
 import { BodySilhouette } from './components/BodySilhouette';
 import { PieceBank } from './components/PieceBank';
 
 export const RompecabezasGame: React.FC = () => {
-  const navigate = useNavigate();
+  const { puzzleId } = useParams<{ puzzleId: string }>();
+  const navigate = useViewTransitionNavigate();
+  const bankRef = useRef<HTMLDivElement>(null);
+  const silhouetteSvgRef = useRef<SVGSVGElement>(null);
+  const wasKeyboardSelectedRef = useRef(false);
+
+  const model = getPuzzleById(puzzleId);
+  const nextPuzzle = model ? getNextPuzzle(model.id) : undefined;
+
+  useDocumentTitle(
+    model ? `${model.name} · Rompecabezas · Juegos de Lina` : 'Rompecabezas · Juegos de Lina'
+  );
 
   const {
     placedPieces,
     selectedPiece,
     setSelectedPiece,
     shakingSlot,
+    bankHint,
     isWon,
     availablePieces,
     handleBankSelect,
     handleSlotSelect,
     handleRestart,
-  } = useRompecabezasLogic();
+  } = useRompecabezasLogic(model);
 
-  // Keyboard controls for bank
-  const { focusedIndex: bankFocusedIndex, setFocusedIndex: setBankFocusedIndex } = useKeyboard({
-    gridColumns: 3,
-    totalItems: availablePieces.length,
-    onEnter: (index: number) => {
-      const piece = availablePieces[index];
-      if (piece) handleBankSelect(piece.id);
-    },
-    onEscape: () => navigate('/'),
-    isActive: !isWon && selectedPiece === null && availablePieces.length > 0,
+  useKeyboard({
+    containerRef: bankRef,
+    onEscape: () => navigate('/rompecabezas'),
+    isActive: Boolean(model) && !isWon && selectedPiece === null && availablePieces.length > 0,
   });
 
-  // For board slots keyboard navigation
-  const missingSlots = BOARD_SLOTS.filter((id) => !placedPieces.includes(id));
-
-  const { focusedIndex: boardFocusedIndex } = useKeyboard({
-    gridColumns: 2,
-    totalItems: missingSlots.length,
-    onEnter: (index: number) => {
-      const targetId = missingSlots[index];
-      if (targetId) handleSlotSelect(targetId);
-    },
+  useKeyboard({
+    containerRef: silhouetteSvgRef,
     onEscape: () => setSelectedPiece(null),
-    isActive: !isWon && selectedPiece !== null,
+    isActive: Boolean(model) && !isWon && selectedPiece !== null,
   });
+
+  useEffect(() => {
+    const active = document.activeElement as (HTMLElement | SVGElement) | null;
+    if (selectedPiece !== null && active && bankRef.current?.contains(active)) {
+      wasKeyboardSelectedRef.current = active.matches(':focus-visible');
+      if (wasKeyboardSelectedRef.current) {
+        const firstSlot = silhouetteSvgRef.current?.querySelector<SVGElement>('[data-kb-item]');
+        firstSlot?.focus();
+      }
+    } else if (selectedPiece === null && wasKeyboardSelectedRef.current) {
+      wasKeyboardSelectedRef.current = false;
+      const firstPiece = bankRef.current?.querySelector<HTMLElement>('[data-kb-item]');
+      firstPiece?.focus();
+    }
+  }, [selectedPiece]);
+
+  if (!model) {
+    return <Navigate to="/rompecabezas" replace />;
+  }
+
+  const selectedPieceObj = model.pieces.find((p) => p.id === selectedPiece);
+  const subtitleText = selectedPieceObj
+    ? `Poné: ${selectedPieceObj.name}`
+    : 'Elegí una pieza';
 
   return (
-    <div className="relative min-h-dvh flex flex-col bg-gradient-to-b from-teal-200 via-cyan-100 to-blue-100 overflow-hidden">
-      {/* Header */}
-      <header className="w-full px-3 sm:px-4 py-2.5 sm:py-3 flex items-center justify-between bg-white/95 sticky top-0 z-30 shadow-md border-b border-white/50">
-        <button
-          type="button"
-          onClick={() => navigate('/')}
-          className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 bg-white hover:bg-cyan-50 text-cyan-600 rounded-full font-extrabold shadow-md hover:shadow-lg transition-all hover:scale-105 active:scale-95 border-2 border-cyan-200 shrink-0 cursor-pointer"
-          aria-label="Volver al menú principal"
-        >
-          <ArrowLeft className="w-4 h-4 sm:w-5 sm:h-5" />
-          <span className="hidden sm:inline text-sm">Volver</span>
-        </button>
+    <div className="relative min-h-dvh flex flex-col">
+      <MagicalBackground variant="meadow" />
+      <Header
+        title={model.shortName}
+        subtitle={subtitleText}
+        backTo="/rompecabezas"
+        backLabel="Dibujos"
+        progressCurrent={placedPieces.length}
+        progressTotal={model.pieces.length}
+        onRestart={handleRestart}
+      />
 
-        <h1 className="text-xl sm:text-2xl md:text-3xl text-center text-cyan-700 flex-1 px-2 font-extrabold drop-shadow-sm truncate">
-          {selectedPiece ? '👇 ¡Tocá dónde va!' : '👆 ¡Elegí una pieza!'}
-        </h1>
-
-        <div className="w-20 shrink-0" />
-      </header>
-
-      <main className="flex-1 flex flex-col lg:flex-row items-center justify-center lg:gap-12 py-2 sm:py-6 px-2 sm:px-4">
-        {/* Silhouette Center */}
+      <main className="flex-1 w-full max-w-[98vw] 2xl:max-w-[95vw] mx-auto flex flex-col lg:flex-row items-center justify-center gap-3 sm:gap-5 lg:gap-8 p-2 sm:p-4 pb-[max(0.5rem,env(safe-area-inset-bottom,0px))]">
         <BodySilhouette
+          svgRef={silhouetteSvgRef}
+          model={model}
           placedPieces={placedPieces}
           selectedPiece={selectedPiece}
           shakingSlot={shakingSlot}
-          targetSlotId={missingSlots[boardFocusedIndex]}
-          onSlotSelect={handleSlotSelect}
+          onSlotSelect={(targetId) => handleSlotSelect(targetId)}
+          onSlotDrop={(targetId, droppedId) => handleSlotSelect(targetId, droppedId)}
         />
 
-        {/* Scattered Pieces Bank */}
-        <PieceBank
-          availablePieces={availablePieces}
-          selectedPiece={selectedPiece}
-          focusedIndex={bankFocusedIndex}
-          onSelectPiece={handleBankSelect}
-          onHoverPiece={(idx) => {
-            if (selectedPiece === null) setBankFocusedIndex(idx);
-          }}
-        />
+        {availablePieces.length > 0 && (
+          <PieceBank
+            containerRef={bankRef}
+            availablePieces={availablePieces}
+            selectedPiece={selectedPiece}
+            bankHint={bankHint}
+            onSelectPiece={handleBankSelect}
+          />
+        )}
       </main>
 
       {isWon && (
         <WinScreen
           onRestart={handleRestart}
-          title="¡Armaste el cuerpo!"
-          message="¡Pusiste todas las piezas en su lugar! 🧑"
+          onMenu={() => navigate('/rompecabezas')}
+          menuLabel="Otros dibujos"
+          onNext={
+            nextPuzzle
+              ? () => navigate(`/rompecabezas/jugar/${nextPuzzle.id}`)
+              : undefined
+          }
+          nextLabel={nextPuzzle ? `Siguiente: ${nextPuzzle.shortName}` : undefined}
+          title={`¡Armaste ${model.shortName}!`}
+          message="¡Pusiste todas las piezas en su lugar!"
         />
       )}
     </div>

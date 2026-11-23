@@ -1,62 +1,93 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import confetti from 'canvas-confetti';
 import { shuffle } from '../../../utils/shuffle';
-import { PIECES } from '../data/pieces';
-import type { PieceId, PieceInfo } from '../types';
+import type { PuzzleModel, PuzzlePieceDef } from '../types';
+import { markPuzzleCompleted } from '../utils/progress';
 
-export const useRompecabezasLogic = () => {
-  const [placedPieces, setPlacedPieces] = useState<PieceId[]>([]);
-  const [selectedPiece, setSelectedPiece] = useState<PieceId | null>(null);
-  const [shakingSlot, setShakingSlot] = useState<PieceId | null>(null);
+export const useRompecabezasLogic = (model: PuzzleModel | undefined) => {
+  const [placedPieces, setPlacedPieces] = useState<string[]>([]);
+  const [selectedPiece, setSelectedPiece] = useState<string | null>(null);
+  const [shakingSlot, setShakingSlot] = useState<string | null>(null);
+  const [bankHint, setBankHint] = useState(false);
   const [isWon, setIsWon] = useState(false);
-  const [shuffledBank, setShuffledBank] = useState<PieceInfo[]>([]);
+  const [shuffledBank, setShuffledBank] = useState<PuzzlePieceDef[]>([]);
+  const timersRef = useRef<number[]>([]);
+
+  const clearAllTimers = useCallback(() => {
+    for (const id of timersRef.current) {
+      window.clearTimeout(id);
+    }
+    timersRef.current = [];
+  }, []);
+
+  const scheduleTimeout = useCallback((fn: () => void, delayMs: number) => {
+    const id = window.setTimeout(() => {
+      timersRef.current = timersRef.current.filter((t) => t !== id);
+      fn();
+    }, delayMs);
+    timersRef.current.push(id);
+    return id;
+  }, []);
 
   const initializeGame = useCallback(() => {
+    clearAllTimers();
     setPlacedPieces([]);
     setSelectedPiece(null);
     setShakingSlot(null);
+    setBankHint(false);
     setIsWon(false);
-    setShuffledBank(shuffle(PIECES));
-  }, []);
+    setShuffledBank(model ? shuffle(model.pieces) : []);
+  }, [model, clearAllTimers]);
 
   useEffect(() => {
     initializeGame();
-  }, [initializeGame]);
+    return () => clearAllTimers();
+  }, [initializeGame, clearAllTimers]);
 
   const availablePieces = shuffledBank.filter((p) => !placedPieces.includes(p.id));
 
-  const handleBankSelect = useCallback((id: PieceId) => {
+  const handleBankSelect = useCallback((id: string) => {
+    setBankHint(false);
     setSelectedPiece((prev) => (prev === id ? null : id));
   }, []);
 
   const handleSlotSelect = useCallback(
-    (targetId: PieceId) => {
-      if (!selectedPiece) return;
+    (targetId: string, pieceOverride?: string) => {
+      if (!model || placedPieces.includes(targetId)) {
+        return;
+      }
 
-      if (selectedPiece === targetId) {
-        // Correct piece!
+      const activePiece = pieceOverride ?? selectedPiece;
+
+      if (!activePiece) {
+        setBankHint(true);
+        scheduleTimeout(() => setBankHint(false), 600);
+        return;
+      }
+
+      if (activePiece === targetId) {
         confetti({
           particleCount: 40,
           spread: 60,
           origin: { y: 0.6 },
-          colors: ['#FFD700', '#FF8BA7', '#FFD3B6', '#FFC6FF'],
+          colors: ['#F25C78', '#FFBE3D', '#5BC0EB', '#6BCB9F', '#C8A2F6'],
+          disableForReducedMotion: true,
         });
 
         const newPlaced = [...placedPieces, targetId];
         setPlacedPieces(newPlaced);
         setSelectedPiece(null);
 
-        if (newPlaced.length === PIECES.length) {
-          setTimeout(() => setIsWon(true), 600);
+        if (newPlaced.length === model.pieces.length) {
+          markPuzzleCompleted(model.id);
+          scheduleTimeout(() => setIsWon(true), 600);
         }
       } else {
-        // Wrong slot
         setShakingSlot(targetId);
-        setTimeout(() => setShakingSlot(null), 500);
-        setSelectedPiece(null);
+        scheduleTimeout(() => setShakingSlot(null), 480);
       }
     },
-    [selectedPiece, placedPieces]
+    [model, selectedPiece, placedPieces, scheduleTimeout]
   );
 
   return {
@@ -64,6 +95,7 @@ export const useRompecabezasLogic = () => {
     selectedPiece,
     setSelectedPiece,
     shakingSlot,
+    bankHint,
     isWon,
     availablePieces,
     handleBankSelect,
