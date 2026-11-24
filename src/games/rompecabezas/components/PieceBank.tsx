@@ -24,13 +24,13 @@ export const PieceBank: React.FC<PieceBankProps> = ({
       ref={containerRef}
       aria-label="Piezas para encastrar"
       className={clsx(
-        'h-fit self-center w-full lg:flex-1 lg:max-w-xl flex items-center justify-center p-2.5 sm:p-5 lg:p-6 rounded-[1.75rem] sm:rounded-[2.25rem] bg-[#FFFDF9] border-3 sm:border-4 border-[#F0DFC8] shadow-[0_7px_0_#DFC7A7] transition-shadow duration-300',
+        'h-fit self-center w-full lg:flex-1 lg:max-w-xl flex items-center justify-center p-[8px] sm:p-5 lg:p-6 rounded-[24px] sm:rounded-[34px] bg-[#FFFDF9] border-3 sm:border-4 border-[#F0DFC8] shadow-[0_7px_0_#DFC7A7] transition-shadow duration-300',
         bankHint && 'ring-4 ring-[#FFBE3D] shadow-[0_7px_0_#D99216]'
       )}
     >
       <div
         className={clsx(
-          'grid w-full gap-2 sm:gap-3.5 lg:gap-4',
+          'grid w-full gap-[6px] sm:gap-3.5 lg:gap-4',
           isCompactFour
             ? 'grid-cols-4 sm:grid-cols-4 lg:grid-cols-2'
             : 'grid-cols-4 sm:grid-cols-4 lg:grid-cols-2 xl:grid-cols-3'
@@ -57,7 +57,7 @@ export const PieceBank: React.FC<PieceBankProps> = ({
               }}
               onClick={() => onSelectPiece(piece.id)}
               className={clsx(
-                'toy-press flex flex-col items-center justify-between gap-1 sm:gap-2 p-1.5 sm:p-3 rounded-[1.2rem] sm:rounded-[1.5rem] border-3 cursor-pointer min-w-0 w-full',
+                'toy-press flex flex-col items-center justify-between gap-[4px] sm:gap-2 p-[6px] sm:p-3 rounded-[16px] sm:rounded-[22px] border-3 cursor-pointer min-w-0 w-full',
                 isSelected
                   ? 'bg-[#FFF5D6] border-[#FFBE3D] shadow-[0_5px_0_#D99216] -translate-y-1 scale-105'
                   : 'bg-[#FFF8EE] border-[#E8D4B8] shadow-[0_4px_0_#D8BE9C] hover:border-[#5BC0EB]',

@@ -167,7 +167,7 @@
 
 /* Tablero proporcional para Memotest: cartas cuadradas grandes sin deformarse */
 .memotest-board-wrap {
-  width: min(96vw, calc((100dvh - 6.25rem) * 0.74));
+  width: min(96vw, calc((100dvh - 118px) * 0.74));
 }
 
 .memotest-grid {
@@ -177,7 +177,7 @@
 
 @media (min-width: 640px) and (orientation: landscape) {
   .memotest-board-wrap {
-    width: min(94vw, calc((100dvh - 6.75rem) * 1.34));
+    width: min(94vw, calc((100dvh - 112px) * 1.34));
   }
 
   .memotest-grid {
@@ -187,14 +187,14 @@
 
 /* Temas con 8 parejas (16 cartas): tablero cuadrado 4×4 en cualquier orientación */
 .memotest-board-wrap[data-pairs="8"] {
-  width: min(96vw, calc(100dvh - 6.25rem));
+  width: min(96vw, calc(100dvh - 132px));
 
   .memotest-grid {
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 
   @media (min-width: 640px) and (orientation: landscape) {
-    width: min(94vw, calc(100dvh - 6.75rem));
+    width: min(94vw, calc(100dvh - 112px));
   }
 }
 

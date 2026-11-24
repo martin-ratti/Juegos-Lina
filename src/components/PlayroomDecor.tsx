@@ -175,7 +175,7 @@ export const ScallopedMedallion: React.FC<ScallopedMedallionProps> = ({
   const clipId = useId();
   const sizeClass =
     size === 'card'
-      ? 'w-[68%] max-w-28 aspect-square'
+      ? 'w-[78%] max-w-[118px] aspect-square'
       : size === 'lg'
         ? 'w-20 h-20 sm:w-26 sm:h-26'
         : size === 'md'

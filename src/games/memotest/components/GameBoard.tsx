@@ -34,10 +34,10 @@ export const GameBoard: React.FC<GameBoardProps> = ({
     <div
       ref={boardRef}
       data-pairs={theme.cards.length}
-      className="memotest-board-wrap mx-auto p-2 sm:p-3.5 bg-[#FFFDF9] rounded-[1.75rem] sm:rounded-[2.25rem] border-3 sm:border-4 border-white shadow-[0_8px_0_#E5CEB0,0_16px_28px_rgba(61,38,69,0.12)]"
+      className="memotest-board-wrap mx-auto p-[6px] sm:p-[14px] bg-[#FFFDF9] rounded-[22px] sm:rounded-[34px] border-3 sm:border-4 border-white shadow-[0_8px_0_#E5CEB0,0_16px_28px_rgba(61,38,69,0.12)]"
     >
-      <div className="border-2 border-dashed border-[#EEDBC3] rounded-[1.35rem] sm:rounded-[1.75rem] p-2 sm:p-3">
-        <div className="memotest-grid gap-2 sm:gap-3.5">
+      <div className="border-2 border-dashed border-[#EEDBC3] rounded-[16px] sm:rounded-[26px] p-[6px] sm:p-[12px]">
+        <div className="memotest-grid gap-[6px] sm:gap-[12px]">
           {cards.map((card, index) => (
             <Card
               key={card.id}

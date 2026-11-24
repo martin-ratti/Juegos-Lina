@@ -45,7 +45,7 @@ export const Game: React.FC = () => {
         onRestart={initializeGame}
       />
 
-      <main className="flex-1 flex items-center justify-center p-2 sm:p-3 pb-[max(0.5rem,env(safe-area-inset-bottom,0px))]">
+      <main className="flex-1 flex items-center justify-center px-[6px] py-[8px] sm:p-3 pb-[max(8px,env(safe-area-inset-bottom,0px))]">
         <GameBoard
           cards={cards}
           theme={theme}
